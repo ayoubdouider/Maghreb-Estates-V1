@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Atlas Coast Realty | Morocco Real Estate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sand: #f7f1e6;
+      --clay: #c86b3c;
+      --copper: #b55a33;
+      --forest: #1f3b34;
+      --ink: #1b1a17;
+      --olive: #8f9560;
+      --cream: #fffaf3;
+      --shadow: 0 24px 60px rgba(27, 26, 23, 0.12);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Manrope", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at top, #fffaf0, #f3e6d3 55%, #efe0c8 100%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 250, 243, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(27, 26, 23, 0.08);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Playfair Display", serif;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 0.4px;
+    }
+
+    .logo span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(140deg, var(--clay), var(--forest));
+      color: #fffaf0;
+      font-size: 18px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      font-weight: 500;
+    }
+
+    .nav-cta {
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: var(--forest);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 72px 24px 48px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 36px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #403a34;
+    }
+
+    .hero-actions {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--clay);
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-secondary {
+      border-color: rgba(27, 26, 23, 0.2);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .hero-card {
+      background: var(--cream);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 16px;
+    }
+
+    .hero-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 18px;
+    }
+
+    .stats {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      text-align: center;
+      border: 1px solid rgba(27, 26, 23, 0.08);
+    }
+
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 24px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .section-title h2 {
+      font-family: "Playfair Display", serif;
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+    }
+
+    .section-title span {
+      color: var(--olive);
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 18px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(200, 107, 60, 0.12);
+      color: var(--copper);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .areas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .area-card {
+      padding: 20px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(31, 59, 52, 0.92), rgba(200, 107, 60, 0.9));
+      color: #fff;
+      min-height: 190px;
+      display: grid;
+      gap: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .area-card h3 { margin: 0; }
+
+    .listings {
+      display: grid;
+      gap: 16px;
+    }
+
+    .listing {
+      padding: 18px;
+      border-radius: 18px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      align-items: center;
+      background: #fff;
+      border: 1px solid rgba(27, 26, 23, 0.08);
+    }
+
+    .listing strong { font-size: 1.1rem; }
+
+    .testimonials {
+      background: #1f3b34;
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 32px;
+      display: grid;
+      gap: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .quote {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .cta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 36px;
+      box-shadow: var(--shadow);
+    }
+
+    .cta form {
+      display: grid;
+      gap: 12px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(27, 26, 23, 0.15);
+      font-family: inherit;
+    }
+
+    .footer {
+      padding: 36px 24px 48px;
+      text-align: center;
+      color: #5a524b;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .lang-switch a {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(31, 59, 52, 0.08);
+    }
+
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      .hero { padding-top: 48px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="logo"><span>AC</span>Atlas Coast Realty</div>
+      <nav class="nav-links">
+        <a href="#collections">Collections</a>
+        <a href="#areas">Areas</a>
+        <a href="#listings">Listings</a>
+        <a href="#projects">Projects</a>        <a href="#contact">Contact</a>
+      </nav>
+      <a class="nav-cta" href="#contact">Request a Tour</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="lang-switch">
+          <a href="maroc-real-estate-nl.html">NL</a>
+          <a href="maroc-real-estate-en.html">EN</a>
+          <a href="maroc-real-estate-fr.html">FR</a>
+          <a href="maroc-real-estate-ar.html">AR</a>
+        </div>
+        <h1>Morocco's coastal residences curated with local insight.</h1>
+        <p>Atlas Coast Realty is a boutique agency based in Casablanca, guiding international and local buyers to refined homes across Morocco. We combine neighborhood intelligence, legal clarity, and warm hospitality to make every acquisition effortless.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#contact">Schedule a private viewing</a>
+          <a class="btn-secondary" href="#collections">Explore collections</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <img src="https://images.unsplash.com/photo-Dmw9uiSpA5g?auto=format&fit=crop&w=1600&q=80" alt="Tangier coastline" />
+        <strong>Featured: Jardin Riad, Marrakech</strong>
+        <span>4 bedrooms · Rooftop terrace · 312 m²</span>
+        <div class="stats">
+          <div class="stat">
+            <strong>35+</strong>
+            <div>Signature listings</div>
+          </div>
+          <div class="stat">
+            <strong>15</strong>
+            <div>Years in market</div>
+          </div>
+          <div class="stat">
+            <strong>9</strong>
+            <div>Regional advisors</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="collections" class="section">
+      <div class="section-title">
+        <h2>Curated collections</h2>
+        <span>Investments with soul</span>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=1200&q=80" alt="Tangier sea view apartment" />
+          <div class="card-body">
+            <div class="pill">Sea View Living</div>
+            <strong>Atlantic Panorama Apartments</strong>
+            <p>Light-filled homes with terraces overlooking the Strait of Gibraltar.</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80" alt="Atlas mountain villa" />
+          <div class="card-body">
+            <div class="pill">Mountain Retreats</div>
+            <strong>Atlas Heritage Villas</strong>
+            <p>Stone and cedar villas tucked into valleys with private pools.</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" alt="Marrakech riad interior" />
+          <div class="card-body">
+            <div class="pill">City Riads</div>
+            <strong>Medina Artistry Collection</strong>
+            <p>Restored riads near souks with concierge-ready operations.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="areas" class="section">
+      <div class="section-title">
+        <h2>Destinations we represent</h2>
+        <span>Across Morocco</span>
+      </div>
+      <div class="areas">
+        <div class="area-card">
+          <h3>Casablanca</h3>
+          <p>Business district residences, Corniche penthouses, and contemporary family villas.</p>
+        </div>
+        <div class="area-card">
+          <h3>Marrakech</h3>
+          <p>Riad investments, Palmeraie estates, and wellness-focused resorts.</p>
+        </div>
+        <div class="area-card">
+          <h3>Tangier</h3>
+          <p>Sea-view apartments and restored heritage houses near the Kasbah.</p>
+        </div>
+        <div class="area-card">
+          <h3>Essaouira</h3>
+          <p>Atlantic retreats ideal for boutique hospitality and creative studios.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="listings" class="section">
+      <div class="section-title">
+        <h2>Latest listings</h2>
+        <span>Handpicked availability</span>
+      </div>
+      <div class="listings">
+        <div class="listing">
+          <strong>Villa Toubkal</strong>
+          <span>6 bedrooms · Imlil</span>
+          <span>Private spa · 540 m²</span>
+          <span>€1,750,000</span>
+        </div>
+        <div class="listing">
+          <strong>Le Rivage Penthouse</strong>
+          <span>3 bedrooms · Casablanca</span>
+          <span>Panoramic terrace · 210 m²</span>
+          <span>€920,000</span>
+        </div>
+        <div class="listing">
+          <strong>Riad Lune</strong>
+          <span>5 bedrooms · Marrakech</span>
+          <span>Guest license · 380 m²</span>
+          <span>€1,280,000</span>
+        </div>
+      </div>
+    </section>
+
+
+
+
+    <section id="projects" class="section">
+      <div class="section-title">
+        <h2>Projects from ImmoWorld</h2>
+        <span>Selected developments in Tangier</span>
+      </div>
+      <div class="grid-3">
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-6xa-FLdKJco?auto=format&fit=crop&w=1600&q=80" alt="Golf Gardens (Mesnana)" />
+          <div class="card-body">
+            <div class="pill">Project</div>
+            <strong>Golf Gardens (Mesnana)</strong>
+            <p>Residence opposite the Royal Golf Club in a calm, green neighborhood.</p>
+            <p><small>86–108 m² · Built 2023 · Delivery 2026</small></p>
+            <a class="btn-secondary" href="project-golf-en.html" target="_blank" rel="noopener">Learn more</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-4ZeTJcaspAk?auto=format&fit=crop&w=1600&q=80" alt="Panorama 2" />
+          <div class="card-body">
+            <div class="pill">Project</div>
+            <strong>Panorama 2</strong>
+            <p>Development with shared pool, camera security, and smart home options.</p>
+            <p><small>118–300 m² · Built 2017 · Delivery 2022</small></p>
+            <a class="btn-secondary" href="project-panorama-en.html" target="_blank" rel="noopener">Learn more</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-mAf42pnEis0?auto=format&fit=crop&w=1600&q=80" alt="Perla Residence (Tanja Balia)" />
+          <div class="card-body">
+            <div class="pill">Project</div>
+            <strong>Perla Residence (Tanja Balia)</strong>
+            <p>Studios and apartments with green spaces and 24/7 security.</p>
+            <p><small>24–130 m² · Built 2024 · Delivery 2027</small></p>
+            <a class="btn-secondary" href="project-perla-en.html" target="_blank" rel="noopener">Learn more</a>
+          </div>
+        </article>
+      </div>
+    </section>
+<section class="section">
+      <div class="testimonials">
+        <div class="section-title">
+          <h2>What our clients say</h2>
+          <span>Trusted by global families</span>
+        </div>
+        <div class="testimonial-grid">
+          <div class="quote">
+            “The team translated every detail and found the perfect riad for our boutique hotel plans.”
+            <div>— Helena, Amsterdam</div>
+          </div>
+          <div class="quote">
+            “Professional, warm, and deeply connected. We felt at home in every viewing.”
+            <div>— Karim, Dubai</div>
+          </div>
+          <div class="quote">
+            “Their market insights saved us months and helped us negotiate with confidence.”
+            <div>— Sophie, Paris</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="cta">
+        <div>
+          <h2>Plan your Morocco property journey</h2>
+          <p>Share your goals and we will send curated listings within 48 hours, plus a private itinerary with viewings and local introductions.</p>
+          <p><strong>Office:</strong> Boulevard Zerktouni, Casablanca · +212 5 22 00 00 00</p>
+          <p><strong>Email:</strong> hello@atlascoastrealty.ma</p>
+        </div>
+        <form>
+          <input type="text" placeholder="Full name" />
+          <input type="email" placeholder="Email address" />
+          <select>
+            <option>Interested in: Residential</option>
+            <option>Interested in: Investment</option>
+            <option>Interested in: Hospitality</option>
+          </select>
+          <textarea rows="4" placeholder="Tell us about your ideal home"></textarea>
+          <button class="btn-primary" type="submit">Request consultation</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Atlas Coast Realty. All rights reserved.</p>
+  </footer>
+</body>
+</html>

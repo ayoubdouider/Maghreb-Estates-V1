@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>أطلس كوست ريالتي | عقارات المغرب</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sand: #f7f1e6;
+      --clay: #c86b3c;
+      --copper: #b55a33;
+      --forest: #1f3b34;
+      --ink: #1b1a17;
+      --olive: #8f9560;
+      --cream: #fffaf3;
+      --shadow: 0 24px 60px rgba(27, 26, 23, 0.12);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Cairo", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at top, #fffaf0, #f3e6d3 55%, #efe0c8 100%);
+      direction: rtl;
+      text-align: right;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 250, 243, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(27, 26, 23, 0.08);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-direction: row-reverse;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Playfair Display", serif;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 0.4px;
+    }
+
+    .logo span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(140deg, var(--clay), var(--forest));
+      color: #fffaf0;
+      font-size: 18px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      font-weight: 600;
+      flex-direction: row-reverse;
+    }
+
+    .nav-cta {
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: var(--forest);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 72px 24px 48px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 36px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #403a34;
+    }
+
+    .hero-actions {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: flex-end;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--clay);
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-secondary {
+      border-color: rgba(27, 26, 23, 0.2);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .hero-card {
+      background: var(--cream);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 16px;
+    }
+
+    .hero-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 18px;
+    }
+
+    .stats {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      text-align: center;
+      border: 1px solid rgba(27, 26, 23, 0.08);
+    }
+
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 24px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 28px;
+      flex-direction: row-reverse;
+    }
+
+    .section-title h2 {
+      font-family: "Playfair Display", serif;
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+    }
+
+    .section-title span {
+      color: var(--olive);
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 18px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(200, 107, 60, 0.12);
+      color: var(--copper);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .areas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .area-card {
+      padding: 20px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(31, 59, 52, 0.92), rgba(200, 107, 60, 0.9));
+      color: #fff;
+      min-height: 190px;
+      display: grid;
+      gap: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .area-card h3 { margin: 0; }
+
+    .listings {
+      display: grid;
+      gap: 16px;
+    }
+
+    .listing {
+      padding: 18px;
+      border-radius: 18px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      align-items: center;
+      background: #fff;
+      border: 1px solid rgba(27, 26, 23, 0.08);
+    }
+
+    .listing strong { font-size: 1.1rem; }
+
+    .testimonials {
+      background: #1f3b34;
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 32px;
+      display: grid;
+      gap: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .quote {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .cta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 36px;
+      box-shadow: var(--shadow);
+    }
+
+    .cta form {
+      display: grid;
+      gap: 12px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(27, 26, 23, 0.15);
+      font-family: inherit;
+    }
+
+    .footer {
+      padding: 36px 24px 48px;
+      text-align: center;
+      color: #5a524b;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .lang-switch a {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(31, 59, 52, 0.08);
+    }
+
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      .hero { padding-top: 48px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="logo"><span>AC</span>Atlas Coast Realty</div>
+      <nav class="nav-links">
+        <a href="#collections">المجموعات</a>
+        <a href="#areas">المناطق</a>
+        <a href="#listings">العقارات</a>
+        <a href="#projects">المشاريع</a>        <a href="#contact">تواصل</a>
+      </nav>
+      <a class="nav-cta" href="#contact">احجز جولة</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="lang-switch">
+          <a href="maroc-real-estate-nl.html">NL</a>
+          <a href="maroc-real-estate-en.html">EN</a>
+          <a href="maroc-real-estate-fr.html">FR</a>
+          <a href="maroc-real-estate-ar.html">AR</a>
+        </div>
+        <h1>عقارات المغرب بإدارة خبراء محليين.</h1>
+        <p>أطلس كوست ريالتي وكالة بوتيك مقرها الدار البيضاء، نرافق المشترين المحليين والدوليين لاختيار منازل راقية في مختلف المدن المغربية. نجمع بين معرفة الأحياء والوضوح القانوني وحسن الضيافة.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#contact">احجز زيارة خاصة</a>
+          <a class="btn-secondary" href="#collections">استكشف المجموعات</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <img src="https://images.unsplash.com/photo-Dmw9uiSpA5g?auto=format&fit=crop&w=1600&q=80" alt="ساحل طنجة" />
+        <strong>مختار: رياض جاردان، مراكش</strong>
+        <span>4 غرف نوم · سطح بانورامي · 312 م²</span>
+        <div class="stats">
+          <div class="stat">
+            <strong>35+</strong>
+            <div>عقارات مميزة</div>
+          </div>
+          <div class="stat">
+            <strong>15</strong>
+            <div>سنة خبرة</div>
+          </div>
+          <div class="stat">
+            <strong>9</strong>
+            <div>مستشارون إقليميون</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="collections" class="section">
+      <div class="section-title">
+        <h2>مجموعات مختارة</h2>
+        <span>استثمارات بروح مغربية</span>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=1200&q=80" alt="شقة مطلة على البحر في طنجة" />
+          <div class="card-body">
+            <div class="pill">إطلالة بحرية</div>
+            <strong>شقق بانوراما الأطلسي</strong>
+            <p>شقق مضيئة بتراسات تطل على مضيق جبل طارق.</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80" alt="فيلا في جبال الأطلس" />
+          <div class="card-body">
+            <div class="pill">ملاذات الجبال</div>
+            <strong>فلل تراث الأطلس</strong>
+            <p>فلل حجرية مع مسبح خاص وإطلالات على الوديان.</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" alt="رياض في مراكش" />
+          <div class="card-body">
+            <div class="pill">رياض المدينة</div>
+            <strong>مجموعة فنون المدينة</strong>
+            <p>رياضات مجددة قرب الأسواق مع تشغيل جاهز للضيافة.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="areas" class="section">
+      <div class="section-title">
+        <h2>وجهات نمثلها</h2>
+        <span>في أنحاء المغرب</span>
+      </div>
+      <div class="areas">
+        <div class="area-card">
+          <h3>الدار البيضاء</h3>
+          <p>مساكن للأعمال، بنتهاوسات على الكورنيش، وفلل عائلية حديثة.</p>
+        </div>
+        <div class="area-card">
+          <h3>مراكش</h3>
+          <p>استثمارات رياض، قصور نخيل، ومنتجعات للعافية.</p>
+        </div>
+        <div class="area-card">
+          <h3>طنجة</h3>
+          <p>شقق مطلة على البحر ومنازل تراثية قرب القصبة.</p>
+        </div>
+        <div class="area-card">
+          <h3>الصويرة</h3>
+          <p>ملاذات أطلسية مثالية للضيافة البوتيك والاستوديوهات الإبداعية.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="listings" class="section">
+      <div class="section-title">
+        <h2>آخر العقارات</h2>
+        <span>متاح الآن</span>
+      </div>
+      <div class="listings">
+        <div class="listing">
+          <strong>فيلا توبقال</strong>
+          <span>6 غرف نوم · إمليل</span>
+          <span>سبا خاص · 540 م²</span>
+          <span>€1,750,000</span>
+        </div>
+        <div class="listing">
+          <strong>بنتهاوس لو ريفاج</strong>
+          <span>3 غرف نوم · الدار البيضاء</span>
+          <span>تراس بانورامي · 210 م²</span>
+          <span>€920,000</span>
+        </div>
+        <div class="listing">
+          <strong>رياض لون</strong>
+          <span>5 غرف نوم · مراكش</span>
+          <span>رخصة ضيافة · 380 م²</span>
+          <span>€1,280,000</span>
+        </div>
+      </div>
+    </section>
+
+
+
+
+    <section id="projects" class="section">
+      <div class="section-title">
+        <h2>مشاريع ImmoWorld</h2>
+        <span>اختيارات من مشاريع طنجة</span>
+      </div>
+      <div class="grid-3">
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-6xa-FLdKJco?auto=format&fit=crop&w=1600&q=80"4ZeTJcaspAk?auto=format&fit=crop&w=1600&q=80"6xa-FLdKJco?auto=format&fit=crop&w=1600&q=80"vqXVgub4Wsg?auto=format&fit=crop&w=1600&q=80" alt="Golf Gardens (مسنانة)" />
+          <div class="card-body">
+            <div class="pill">مشروع</div>
+            <strong>Golf Gardens (مسنانة)</strong>
+            <p>إقامة مقابل نادي الغولف الملكي في حي هادئ وخضر.</p>
+            <p><small>86–108 م² · البناء 2023 · التسليم 2026</small></p>
+            <a class="btn-secondary" href="project-golf-ar.html" target="_blank" rel="noopener">المزيد</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-4ZeTJcaspAk?auto=format&fit=crop&w=1600&q=80" alt="Panorama 2" />
+          <div class="card-body">
+            <div class="pill">مشروع</div>
+            <strong>Panorama 2</strong>
+            <p>مشروع بمسبح مشترك، أمن بالكاميرات وخيارات منزل ذكي.</p>
+            <p><small>118–300 م² · البناء 2017 · التسليم 2022</small></p>
+            <a class="btn-secondary" href="project-panorama-ar.html" target="_blank" rel="noopener">المزيد</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-mAf42pnEis0?auto=format&fit=crop&w=1600&q=80" alt="Perla Residence (طنجة باليا)" />
+          <div class="card-body">
+            <div class="pill">مشروع</div>
+            <strong>Perla Residence (طنجة باليا)</strong>
+            <p>استوديوهات وشقق مع مساحات خضراء وأمن على مدار الساعة.</p>
+            <p><small>24–130 م² · البناء 2024 · التسليم 2027</small></p>
+            <a class="btn-secondary" href="project-perla-ar.html" target="_blank" rel="noopener">المزيد</a>
+          </div>
+        </article>
+      </div>
+    </section>
+<section class="section">
+      <div class="testimonials">
+        <div class="section-title">
+          <h2>آراء العملاء</h2>
+          <span>ثقة عالمية</span>
+        </div>
+        <div class="testimonial-grid">
+          <div class="quote">
+            “الفريق شرح لنا كل التفاصيل ووجد أفضل رياض لمشروعنا الفندقي.”
+            <div>— هيلينا، أمستردام</div>
+          </div>
+          <div class="quote">
+            “احترافية عالية ودفء في التعامل. شعرنا وكأننا في بيتنا.”
+            <div>— كريم، دبي</div>
+          </div>
+          <div class="quote">
+            “معرفتهم بالسوق وفرت علينا شهورًا من البحث.”
+            <div>— صوفي، باريس</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="cta">
+        <div>
+          <h2>ابدأ رحلة عقارك في المغرب</h2>
+          <p>شاركنا احتياجاتك وسنرسل لك قائمة مختارة خلال 48 ساعة مع جدول زيارات خاص.</p>
+          <p><strong>المكتب:</strong> شارع الزرقطوني، الدار البيضاء · +212 5 22 00 00 00</p>
+          <p><strong>البريد الإلكتروني:</strong> hello@atlascoastrealty.ma</p>
+        </div>
+        <form>
+          <input type="text" placeholder="الاسم الكامل" />
+          <input type="email" placeholder="البريد الإلكتروني" />
+          <select>
+            <option>الاهتمام: سكني</option>
+            <option>الاهتمام: استثمار</option>
+            <option>الاهتمام: ضيافة</option>
+          </select>
+          <textarea rows="4" placeholder="صف المنزل المثالي بالنسبة لك"></textarea>
+          <button class="btn-primary" type="submit">اطلب استشارة</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Atlas Coast Realty. جميع الحقوق محفوظة.</p>
+  </footer>
+</body>
+</html>

@@ -44,7 +44,7 @@
     .wrap {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 24px 60px;
+      padding: 0 24px 70px;
     }
 
     .hero {
@@ -52,92 +52,90 @@
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 24px;
       align-items: center;
-      padding: 36px 0 18px;
+      padding: 40px 0 24px;
     }
 
-    .hero h1 {
-      font-family: "Playfair Display", serif;
-      margin-bottom: 10px;
-      font-size: clamp(2rem, 3.5vw, 3rem);
-    }
-
-    .hero p { line-height: 1.7; }
-
-    .lang-switch {
-      display: inline-flex;
-      gap: 12px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-bottom: 16px;
-    }
-
-    .lang-switch a {
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(31, 59, 52, 0.08);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
-      margin-top: 28px;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-rows: auto 1fr;
-    }
-
-    .card img {
+    .hero img {
       width: 100%;
-      height: 210px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      height: 320px;
       object-fit: cover;
     }
 
-    .card-body {
-      padding: 18px;
-      display: grid;
-      gap: 10px;
-    }
+    h1 { font-family: "Playfair Display", serif; margin-bottom: 10px; }
+    h2 { font-family: "Playfair Display", serif; margin: 0 0 14px; }
 
     .pill {
       display: inline-flex;
-      align-items: center;
-      gap: 6px;
       padding: 6px 12px;
       border-radius: 999px;
       background: rgba(200, 107, 60, 0.12);
       color: var(--copper);
-      font-size: 0.85rem;
       font-weight: 600;
-      width: fit-content;
+      font-size: 0.85rem;
     }
 
-    .facts {
-      margin: 0;
-      padding-inline-start: 18px;
-      color: #4a433c;
+    .meta-grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
     }
 
-    .btn-secondary {
-      margin-top: 6px;
+    .meta-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid rgba(27, 26, 23, 0.08);
+    }
+
+    .section {
+      margin-top: 28px;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    ul { margin: 0; padding-inline-start: 18px; }
+
+    .back { font-weight: 600; }
+
+    .cta {
+      margin-top: 18px;
+      display: inline-flex;
       padding: 10px 16px;
       border-radius: 999px;
       border: 1px solid rgba(27, 26, 23, 0.2);
       background: rgba(255, 255, 255, 0.7);
       font-weight: 600;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
     }
 
-    .back { font-weight: 600; }
+    .source { font-size: 0.9rem; color: #6b6259; margin-top: 12px; }
+  
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      background: #fff;
+    }
+
   </style>
 
 </head>
@@ -152,25 +150,48 @@
       <div>
         <div class="pill">Project</div>
         <h1>Pinea Hills</h1>
-        <p>High-end appartementen in Ghandouri met zeezicht</p>
-        <p>Exclusieve appartementen met privézwembad, Bulthaup-keuken en panoramisch zeezicht in Ghandouri.</p>
+        <p>Luxe appartementen en penthouses met zeezicht in Ghandouri.</p>
+        <div class="meta-grid"><div class="meta-card"><strong>Status</strong><div>In aanbouw</div></div>
+<div class="meta-card"><strong>Bouwjaar</strong><div>2024</div></div>
+<div class="meta-card"><strong>Oppervlakte</strong><div>265–420 m²</div></div>
+<div class="meta-card"><strong>Slaapkamers</strong><div>3–4</div></div>
+<div class="meta-card"><strong>Ligging</strong><div>Ghandouri, Tanger</div></div></div>
+        <a class="cta" href="maroc-real-estate-nl.html#contact">Plan een bezichtiging</a>
       </div>
-      <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80" alt="Pinea Hills" />
+      <img src="assets/tanger/pinea-hills/pinea-hills-hero.png" alt="pinea-hills" />
     </section>
 
-    <section class="card">
-      <div class="lists" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
-        <div>
-          <h2 style="font-family:'Playfair Display',serif;">Belangrijkste feiten</h2>
-          <ul><li>Oppervlakte: 265–420 m²</li><li>Slaapkamers: 3–4</li><li>Bouwjaar: 2024</li><li>Ligging: Ghandouri, Tanger</li></ul>
-        </div>
-        <div>
-          <h2 style="font-family:'Playfair Display',serif;">Highlights</h2>
-          <ul><li>Privézwembad en dakterrasopties</li><li>Bulthaup-keuken met Gaggenau apparatuur</li><li>Zeezicht en luxe afwerking</li></ul>
-        </div>
-      </div>
-      <div class="source" style="font-size:0.9rem;color:#6b6259;">Bron: <a href="https://immoworld.ma/en/apartment/pinea-hills-redefining-luxury-living-in-ghandouri-tangier/" target="_blank" rel="noopener">https://immoworld.ma/en/apartment/pinea-hills-redefining-luxury-living-in-ghandouri-tangier/</a></div>
-    </section>
+    <section class="section">
+  <h2>Beschrijving</h2>
+  <p>Pinea Hills ligt in de toeristische wijk Ghandouri, vlak bij Malabata en populaire cafés. Het project combineert rust, luxe en snelle toegang tot de beste spots van Tanger.</p><p>Het domein omvat 10 villa’s en 10 residentiële gebouwen met elk 6 appartementen in een beveiligde, groene omgeving.</p>
+</section>
+<section class="section">
+  <h2>Woningtypes</h2>
+  <ul><li>Gelijkvloers: terras privé, zwembad, ruime living, Bulthaup‑keuken, 3 slaapkamers met en‑suite badkamers.</li><li>Eerste verdieping: gelijkvloerse indeling + extra slaapkamer.</li><li>Penthouses: rooftop met infinity pool en panoramisch zeezicht.</li></ul>
+</section>
+<section class="section">
+  <h2>Afwerking & materialen</h2>
+  <ul><li>Marmer Cohiba in leefruimtes + parket eik</li><li>Bulthaup‑keuken met Gaggenau apparaten</li><li>Badkamers met Blue Roma, Noken en Porcelanosa</li><li>Schüco dubbel glas met thermische onderbreking</li><li>Vloerverwarming (Climatix), warmtepomp en Daikin airco</li><li>Domotica Teletask en Delta Light armaturen</li></ul>
+</section>
+<section class="section">
+  <h2>Waarom investeren</h2>
+  <ul><li>Zeezicht + toplocatie Ghandouri/Malabata</li><li>Hoogwaardige afwerking door topdesigners</li><li>Sterke investeringswaarde voor gezinnen en MRE‑kopers</li></ul>
+</section>
+<section class="section">
+  <h2>Fotogalerij</h2>
+  <div class="gallery">
+    <img src="assets/tanger/pinea-hills/pinea-hills-gallery-01.png" alt="pinea-hills image" />
+    <img src="assets/tanger/pinea-hills/pinea-hills-gallery-02.png" alt="pinea-hills image" />
+    <img src="assets/tanger/pinea-hills/pinea-hills-gallery-03.png" alt="pinea-hills image" />
+    <img src="assets/tanger/pinea-hills/pinea-hills-gallery-04.png" alt="pinea-hills image" />
+    <img src="assets/tanger/pinea-hills/pinea-hills-gallery-05.png" alt="pinea-hills image" />
+    <img src="assets/tanger/pinea-hills/pinea-hills-gallery-06.png" alt="pinea-hills image" />
+    <img src="assets/tanger/pinea-hills/pinea-hills-gallery-07.png" alt="pinea-hills image" />
+    <img src="assets/tanger/pinea-hills/pinea-hills-gallery-08.png" alt="pinea-hills image" />
+  </div>
+</section>
+
+    <div class="source">Bron: <a href="https://immoworld.ma/en/apartment/pinea-hills-redefining-luxury-living-in-ghandouri-tangier/" target="_blank" rel="noopener">https://immoworld.ma/en/apartment/pinea-hills-redefining-luxury-living-in-ghandouri-tangier/</a></div>
   </main>
 </body>
 </html>

@@ -44,7 +44,7 @@
     .wrap {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 24px 60px;
+      padding: 0 24px 70px;
     }
 
     .hero {
@@ -52,92 +52,90 @@
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 24px;
       align-items: center;
-      padding: 36px 0 18px;
+      padding: 40px 0 24px;
     }
 
-    .hero h1 {
-      font-family: "Playfair Display", serif;
-      margin-bottom: 10px;
-      font-size: clamp(2rem, 3.5vw, 3rem);
-    }
-
-    .hero p { line-height: 1.7; }
-
-    .lang-switch {
-      display: inline-flex;
-      gap: 12px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-bottom: 16px;
-    }
-
-    .lang-switch a {
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(31, 59, 52, 0.08);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
-      margin-top: 28px;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-rows: auto 1fr;
-    }
-
-    .card img {
+    .hero img {
       width: 100%;
-      height: 210px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      height: 320px;
       object-fit: cover;
     }
 
-    .card-body {
-      padding: 18px;
-      display: grid;
-      gap: 10px;
-    }
+    h1 { font-family: "Playfair Display", serif; margin-bottom: 10px; }
+    h2 { font-family: "Playfair Display", serif; margin: 0 0 14px; }
 
     .pill {
       display: inline-flex;
-      align-items: center;
-      gap: 6px;
       padding: 6px 12px;
       border-radius: 999px;
       background: rgba(200, 107, 60, 0.12);
       color: var(--copper);
-      font-size: 0.85rem;
       font-weight: 600;
-      width: fit-content;
+      font-size: 0.85rem;
     }
 
-    .facts {
-      margin: 0;
-      padding-inline-start: 18px;
-      color: #4a433c;
+    .meta-grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
     }
 
-    .btn-secondary {
-      margin-top: 6px;
+    .meta-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid rgba(27, 26, 23, 0.08);
+    }
+
+    .section {
+      margin-top: 28px;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    ul { margin: 0; padding-inline-start: 18px; }
+
+    .back { font-weight: 600; }
+
+    .cta {
+      margin-top: 18px;
+      display: inline-flex;
       padding: 10px 16px;
       border-radius: 999px;
       border: 1px solid rgba(27, 26, 23, 0.2);
       background: rgba(255, 255, 255, 0.7);
       font-weight: 600;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
     }
 
-    .back { font-weight: 600; }
+    .source { font-size: 0.9rem; color: #6b6259; margin-top: 12px; }
+  
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      background: #fff;
+    }
+
   </style>
 
 </head>
@@ -152,25 +150,48 @@
       <div>
         <div class="pill">مشروع</div>
         <h1>بينيا هيلز (Pinea Hills)</h1>
-        <p>سكن راقٍ في غاندوري بإطلالة بحرية</p>
-        <p>شقق حصرية مع مسابح خاصة ومطابخ Bulthaup وإطلالات بانورامية على البحر في غاندوري.</p>
+        <p>شقق وبنتهاوس فاخرة بإطلالة بحرية في غاندوري.</p>
+        <div class="meta-grid"><div class="meta-card"><strong>الحالة</strong><div>قيد الإنشاء</div></div>
+<div class="meta-card"><strong>سنة البناء</strong><div>2024</div></div>
+<div class="meta-card"><strong>المساحة</strong><div>265–420 م²</div></div>
+<div class="meta-card"><strong>غرف النوم</strong><div>3–4</div></div>
+<div class="meta-card"><strong>الموقع</strong><div>غاندوري، طنجة</div></div></div>
+        <a class="cta" href="maroc-real-estate-ar.html#contact">احجز زيارة</a>
       </div>
-      <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80" alt="بينيا هيلز (Pinea Hills)" />
+      <img src="assets/tanger/pinea-hills/pinea-hills-hero.png" alt="pinea-hills" />
     </section>
 
-    <section class="card">
-      <div class="lists" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
-        <div>
-          <h2 style="font-family:'Playfair Display',serif;">الحقائق الأساسية</h2>
-          <ul><li>المساحة: 265–420 م²</li><li>غرف النوم: 3–4</li><li>سنة البناء: 2024</li><li>الموقع: غاندوري، طنجة</li></ul>
-        </div>
-        <div>
-          <h2 style="font-family:'Playfair Display',serif;">أبرز المزايا</h2>
-          <ul><li>مسبح خاص وخيارات سطح علوي</li><li>مطبخ Bulthaup مع أجهزة Gaggenau</li><li>إطلالة بحرية وتشطيبات فاخرة</li></ul>
-        </div>
-      </div>
-      <div class="source" style="font-size:0.9rem;color:#6b6259;">Bron: <a href="https://immoworld.ma/en/apartment/pinea-hills-redefining-luxury-living-in-ghandouri-tangier/" target="_blank" rel="noopener">https://immoworld.ma/en/apartment/pinea-hills-redefining-luxury-living-in-ghandouri-tangier/</a></div>
-    </section>
+    <section class="section">
+  <h2>الوصف</h2>
+  <p>يقع Pinea Hills في حي غاندوري السياحي بالقرب من مالاباطا والمقاهي البحرية الشهيرة، مع توازن بين الهدوء والرفاهية.</p><p>يضم المشروع 10 فيلات و10 مبانٍ سكنية (6 شقق لكل مبنى) ضمن بيئة آمنة ومُنسّقة.</p>
+</section>
+<section class="section">
+  <h2>أنواع الوحدات</h2>
+  <ul><li>الطابق الأرضي: تراس خاص، مسبح، صالة واسعة، مطبخ Bulthaup، 3 غرف بحمامات خاصة.</li><li>الطابق الأول: نفس التخطيط مع غرفة إضافية.</li><li>البنتهاوس: سطح مع مسبح إنفينيتي وإطلالة بحرية بانورامية.</li></ul>
+</section>
+<section class="section">
+  <h2>التشطيبات والمواد</h2>
+  <ul><li>رخام Cohiba في الصالات + باركيه بلوط</li><li>مطبخ Bulthaup مع أجهزة Gaggenau</li><li>حمامات Blue Roma وNoken وPorcelanosa</li><li>زجاج مزدوج Schüco بعزل حراري</li><li>تدفئة أرضية Climatix ومضخة حرارية وتكييف Daikin</li><li>نظام ذكي Teletask وإضاءة Delta Light</li></ul>
+</section>
+<section class="section">
+  <h2>لماذا الاستثمار</h2>
+  <ul><li>إطلالة بحرية وموقع مميز في غاندوري/مالاباطا</li><li>تشطيبات فاخرة بتصميم راقٍ</li><li>قيمة استثمارية قوية للأسر وMRE</li></ul>
+</section>
+<section class="section">
+  <h2>معرض الصور</h2>
+  <div class="gallery">
+    <img src="assets/tanger/pinea-hills/pinea-hills-gallery-01.png" alt="pinea-hills image" />
+    <img src="assets/tanger/pinea-hills/pinea-hills-gallery-02.png" alt="pinea-hills image" />
+    <img src="assets/tanger/pinea-hills/pinea-hills-gallery-03.png" alt="pinea-hills image" />
+    <img src="assets/tanger/pinea-hills/pinea-hills-gallery-04.png" alt="pinea-hills image" />
+    <img src="assets/tanger/pinea-hills/pinea-hills-gallery-05.png" alt="pinea-hills image" />
+    <img src="assets/tanger/pinea-hills/pinea-hills-gallery-06.png" alt="pinea-hills image" />
+    <img src="assets/tanger/pinea-hills/pinea-hills-gallery-07.png" alt="pinea-hills image" />
+    <img src="assets/tanger/pinea-hills/pinea-hills-gallery-08.png" alt="pinea-hills image" />
+  </div>
+</section>
+
+    <div class="source">المصدر: <a href="https://immoworld.ma/en/apartment/pinea-hills-redefining-luxury-living-in-ghandouri-tangier/" target="_blank" rel="noopener">https://immoworld.ma/en/apartment/pinea-hills-redefining-luxury-living-in-ghandouri-tangier/</a></div>
   </main>
 </body>
 </html>

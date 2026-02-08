@@ -44,7 +44,7 @@
     .wrap {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 24px 60px;
+      padding: 0 24px 70px;
     }
 
     .hero {
@@ -52,92 +52,90 @@
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 24px;
       align-items: center;
-      padding: 36px 0 18px;
+      padding: 40px 0 24px;
     }
 
-    .hero h1 {
-      font-family: "Playfair Display", serif;
-      margin-bottom: 10px;
-      font-size: clamp(2rem, 3.5vw, 3rem);
-    }
-
-    .hero p { line-height: 1.7; }
-
-    .lang-switch {
-      display: inline-flex;
-      gap: 12px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-bottom: 16px;
-    }
-
-    .lang-switch a {
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(31, 59, 52, 0.08);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
-      margin-top: 28px;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-rows: auto 1fr;
-    }
-
-    .card img {
+    .hero img {
       width: 100%;
-      height: 210px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      height: 320px;
       object-fit: cover;
     }
 
-    .card-body {
-      padding: 18px;
-      display: grid;
-      gap: 10px;
-    }
+    h1 { font-family: "Playfair Display", serif; margin-bottom: 10px; }
+    h2 { font-family: "Playfair Display", serif; margin: 0 0 14px; }
 
     .pill {
       display: inline-flex;
-      align-items: center;
-      gap: 6px;
       padding: 6px 12px;
       border-radius: 999px;
       background: rgba(200, 107, 60, 0.12);
       color: var(--copper);
-      font-size: 0.85rem;
       font-weight: 600;
-      width: fit-content;
+      font-size: 0.85rem;
     }
 
-    .facts {
-      margin: 0;
-      padding-inline-start: 18px;
-      color: #4a433c;
+    .meta-grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
     }
 
-    .btn-secondary {
-      margin-top: 6px;
+    .meta-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid rgba(27, 26, 23, 0.08);
+    }
+
+    .section {
+      margin-top: 28px;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    ul { margin: 0; padding-inline-start: 18px; }
+
+    .back { font-weight: 600; }
+
+    .cta {
+      margin-top: 18px;
+      display: inline-flex;
       padding: 10px 16px;
       border-radius: 999px;
       border: 1px solid rgba(27, 26, 23, 0.2);
       background: rgba(255, 255, 255, 0.7);
       font-weight: 600;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
     }
 
-    .back { font-weight: 600; }
+    .source { font-size: 0.9rem; color: #6b6259; margin-top: 12px; }
+  
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      background: #fff;
+    }
+
   </style>
 
 </head>
@@ -152,25 +150,53 @@
       <div>
         <div class="pill">Project</div>
         <h1>Achakar Gardens</h1>
-        <p>Luxury villas 2 minutes from the beach</p>
-        <p>Prestigious villas in Achakar, Tangier, starting from 3,700,000 MAD. Modern architecture, privacy, and a seaside lifestyle.</p>
+        <p>Luxury villas just 2 minutes from Achakar Beach.</p>
+        <div class="meta-grid"><div class="meta-card"><strong>Status</strong><div>Under construction</div></div>
+<div class="meta-card"><strong>Delivery</strong><div>2027</div></div>
+<div class="meta-card"><strong>Starting price</strong><div>3,700,000 MAD</div></div>
+<div class="meta-card"><strong>Surface</strong><div>171–355 m²</div></div>
+<div class="meta-card"><strong>Bedrooms</strong><div>4</div></div>
+<div class="meta-card"><strong>Bathrooms</strong><div>3–5</div></div>
+<div class="meta-card"><strong>Location</strong><div>Achakar, Tangier</div></div></div>
+        <a class="cta" href="maroc-real-estate-en.html#contact">Schedule a visit</a>
       </div>
-      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80" alt="Achakar Gardens" />
+      <img src="assets/tanger/achakar-gardens/achakar-gardens-hero.png" alt="achakar-gardens" />
     </section>
 
-    <section class="card">
-      <div class="lists" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
-        <div>
-          <h2 style="font-family:'Playfair Display',serif;">Key facts</h2>
-          <ul><li>Surface: 171–355 m²</li><li>Bedrooms: 4</li><li>Bathrooms: 3–5</li><li>Delivery: 2027</li><li>Location: Achakar, Tangier</li></ul>
-        </div>
-        <div>
-          <h2 style="font-family:'Playfair Display',serif;">Highlights</h2>
-          <ul><li>Private and shared pools</li><li>Large gardens and terraces</li><li>Private gym</li><li>Underground parking</li><li>2 minutes from Achakar Beach</li></ul>
-        </div>
-      </div>
-      <div class="source" style="font-size:0.9rem;color:#6b6259;">Bron: <a href="https://immoworld.ma/nl/apartment/achakar-gardens-villas-for-sale-tangier/" target="_blank" rel="noopener">https://immoworld.ma/nl/apartment/achakar-gardens-villas-for-sale-tangier/</a></div>
-    </section>
+    <section class="section">
+  <h2>Description</h2>
+  <p>Achakar Gardens is a prestigious residential project of modern luxury villas in one of Tangier’s most sought‑after districts, combining privacy, seaside living, and premium finishes.</p><p>Its location near Achakar Beach, Cap Spartel, and the Hercules Caves offers nature and tranquility with quick access to the city center.</p>
+</section>
+<section class="section">
+  <h2>Amenities</h2>
+  <ul><li>Private and shared pool</li><li>Large gardens and terraces</li><li>Children’s playground</li><li>Private gym</li><li>Underground parking</li></ul>
+</section>
+<section class="section">
+  <h2>Finishes & materials</h2>
+  <ul><li>Wood flooring and wood cladding</li><li>Plaster false ceiling</li><li>Grey marble</li><li>Thermal & sound insulation</li><li>Centralized air conditioning</li><li>Jacob Delafon sanitaryware</li><li>Double glazing</li></ul>
+</section>
+<section class="section">
+  <h2>Why invest</h2>
+  <ul><li>High rental potential near beaches and tourist zones</li><li>Luxury lifestyle in a secure, private setting</li><li>Strong value appreciation in a growing district</li></ul>
+</section>
+<section class="section">
+  <h2>Photo gallery</h2>
+  <div class="gallery">
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-01.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-02.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-03.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-04.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-05.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-06.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-07.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-08.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-09.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-10.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-11.png" alt="achakar-gardens image" />
+  </div>
+</section>
+
+    <div class="source">Source: <a href="https://immoworld.ma/nl/apartment/achakar-gardens-villas-for-sale-tangier/" target="_blank" rel="noopener">https://immoworld.ma/nl/apartment/achakar-gardens-villas-for-sale-tangier/</a></div>
   </main>
 </body>
 </html>

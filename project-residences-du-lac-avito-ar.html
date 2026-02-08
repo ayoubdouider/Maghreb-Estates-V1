@@ -44,7 +44,7 @@
     .wrap {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 24px 60px;
+      padding: 0 24px 70px;
     }
 
     .hero {
@@ -52,92 +52,73 @@
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 24px;
       align-items: center;
-      padding: 36px 0 18px;
+      padding: 40px 0 24px;
     }
 
-    .hero h1 {
-      font-family: "Playfair Display", serif;
-      margin-bottom: 10px;
-      font-size: clamp(2rem, 3.5vw, 3rem);
-    }
-
-    .hero p { line-height: 1.7; }
-
-    .lang-switch {
-      display: inline-flex;
-      gap: 12px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-bottom: 16px;
-    }
-
-    .lang-switch a {
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(31, 59, 52, 0.08);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
-      margin-top: 28px;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-rows: auto 1fr;
-    }
-
-    .card img {
+    .hero img {
       width: 100%;
-      height: 210px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      height: 320px;
       object-fit: cover;
     }
 
-    .card-body {
-      padding: 18px;
-      display: grid;
-      gap: 10px;
-    }
+    h1 { font-family: "Playfair Display", serif; margin-bottom: 10px; }
+    h2 { font-family: "Playfair Display", serif; margin: 0 0 14px; }
 
     .pill {
       display: inline-flex;
-      align-items: center;
-      gap: 6px;
       padding: 6px 12px;
       border-radius: 999px;
       background: rgba(200, 107, 60, 0.12);
       color: var(--copper);
-      font-size: 0.85rem;
       font-weight: 600;
-      width: fit-content;
+      font-size: 0.85rem;
     }
 
-    .facts {
-      margin: 0;
-      padding-inline-start: 18px;
-      color: #4a433c;
+    .meta-grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
     }
 
-    .btn-secondary {
-      margin-top: 6px;
+    .meta-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid rgba(27, 26, 23, 0.08);
+    }
+
+    .section {
+      margin-top: 28px;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    ul { margin: 0; padding-inline-start: 18px; }
+
+    .back { font-weight: 600; }
+
+    .cta {
+      margin-top: 18px;
+      display: inline-flex;
       padding: 10px 16px;
       border-radius: 999px;
       border: 1px solid rgba(27, 26, 23, 0.2);
       background: rgba(255, 255, 255, 0.7);
       font-weight: 600;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
     }
 
-    .back { font-weight: 600; }
+    .source { font-size: 0.9rem; color: #6b6259; margin-top: 12px; }
   </style>
 
 </head>
@@ -152,25 +133,29 @@
       <div>
         <div class="pill">مشروع</div>
         <h1>رياض الأندلس – لي ريزيدونس دو لاك</h1>
-        <p>شقق راقية في حي الرياض</p>
-        <p>شقق في إطار حضري أخضر مع تشطيبات فاخرة وخدمات متعددة.</p>
+        <p>شقق راقية ضمن بيئة خضراء مع مرافق حديثة.</p>
+        <div class="meta-grid"><div class="meta-card"><strong>الحالة</strong><div>قيد الإنشاء</div></div>
+<div class="meta-card"><strong>التسليم</strong><div>يونيو 2026</div></div>
+<div class="meta-card"><strong>السعر ابتداءً من</strong><div>3,100,000 درهم</div></div>
+<div class="meta-card"><strong>الموقع</strong><div>حي الرياض، الرباط</div></div></div>
+        <a class="cta" href="maroc-real-estate-ar.html#contact">احجز زيارة</a>
       </div>
       <img src="https://content.avito.ma/immoneuf/objects/a2/a2bf255a-5ede-4f30-a6d4-638d889d3b63" alt="رياض الأندلس – لي ريزيدونس دو لاك" />
     </section>
 
-    <section class="card">
-      <div class="lists" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
-        <div>
-          <h2 style="font-family:'Playfair Display',serif;">الحقائق الأساسية</h2>
-          <ul><li>المساحة: 105–213 م²</li><li>غرف النوم: 2–3</li><li>السعر ابتداءً من: 3,100,000 درهم</li><li>التسليم: يونيو 2026</li><li>الموقع: حي الرياض، الرباط</li></ul>
-        </div>
-        <div>
-          <h2 style="font-family:'Playfair Display',serif;">أبرز المزايا</h2>
-          <ul><li>كونسيرج</li><li>أمن</li><li>مصعد</li><li>تكييف</li><li>مساحات خضراء وخدمات</li></ul>
-        </div>
-      </div>
-      <div class="source" style="font-size:0.9rem;color:#6b6259;">Bron: <a href="https://immoneuf.avito.ma/fr/d/prestigia-luxury-homes-j4q/ryad-al-andalous---les-residences-du-lac-rabat-riad-j5m" target="_blank" rel="noopener">https://immoneuf.avito.ma/fr/d/prestigia-luxury-homes-j4q/ryad-al-andalous---les-residences-du-lac-rabat-riad-j5m</a></div>
-    </section>
+    <section class="section">
+  <h2>الوصف</h2>
+  <p>Ryad Al Andalous مجمّع سكني مرموق في حي الرياض يجمع الهندسة المعاصرة والمساحات الخضراء والخدمات الراقية.</p><p>يوفر راحة حضرية مع هدوء وسهولة الوصول إلى المحاور الرئيسية.</p>
+</section>
+<section class="section">
+  <h2>أنواع الوحدات</h2>
+  <ul><li>شقق واسعة بتشطيبات فاخرة.</li><li>المشروع يتضمن متاجر ومناطق لعب ومدارس قريبة.</li></ul>
+</section>
+<section class="section">
+  <h2>المرافق</h2>
+  <ul><li>كونسيرج</li><li>أمن</li><li>مصعد</li><li>تكييف</li><li>مساحات خضراء</li><li>مسابح ومرافق</li></ul>
+</section>
+    <div class="source">المصدر: <a href="https://immoneuf.avito.ma/fr/d/prestigia-luxury-homes-j4q/ryad-al-andalous---les-residences-du-lac-rabat-riad-j5m" target="_blank" rel="noopener">https://immoneuf.avito.ma/fr/d/prestigia-luxury-homes-j4q/ryad-al-andalous---les-residences-du-lac-rabat-riad-j5m</a></div>
   </main>
 </body>
 </html>

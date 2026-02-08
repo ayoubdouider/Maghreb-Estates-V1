@@ -44,7 +44,7 @@
     .wrap {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 24px 60px;
+      padding: 0 24px 70px;
     }
 
     .hero {
@@ -52,92 +52,90 @@
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 24px;
       align-items: center;
-      padding: 36px 0 18px;
+      padding: 40px 0 24px;
     }
 
-    .hero h1 {
-      font-family: "Playfair Display", serif;
-      margin-bottom: 10px;
-      font-size: clamp(2rem, 3.5vw, 3rem);
-    }
-
-    .hero p { line-height: 1.7; }
-
-    .lang-switch {
-      display: inline-flex;
-      gap: 12px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-bottom: 16px;
-    }
-
-    .lang-switch a {
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(31, 59, 52, 0.08);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
-      margin-top: 28px;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-rows: auto 1fr;
-    }
-
-    .card img {
+    .hero img {
       width: 100%;
-      height: 210px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      height: 320px;
       object-fit: cover;
     }
 
-    .card-body {
-      padding: 18px;
-      display: grid;
-      gap: 10px;
-    }
+    h1 { font-family: "Playfair Display", serif; margin-bottom: 10px; }
+    h2 { font-family: "Playfair Display", serif; margin: 0 0 14px; }
 
     .pill {
       display: inline-flex;
-      align-items: center;
-      gap: 6px;
       padding: 6px 12px;
       border-radius: 999px;
       background: rgba(200, 107, 60, 0.12);
       color: var(--copper);
-      font-size: 0.85rem;
       font-weight: 600;
-      width: fit-content;
+      font-size: 0.85rem;
     }
 
-    .facts {
-      margin: 0;
-      padding-inline-start: 18px;
-      color: #4a433c;
+    .meta-grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
     }
 
-    .btn-secondary {
-      margin-top: 6px;
+    .meta-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid rgba(27, 26, 23, 0.08);
+    }
+
+    .section {
+      margin-top: 28px;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    ul { margin: 0; padding-inline-start: 18px; }
+
+    .back { font-weight: 600; }
+
+    .cta {
+      margin-top: 18px;
+      display: inline-flex;
       padding: 10px 16px;
       border-radius: 999px;
       border: 1px solid rgba(27, 26, 23, 0.2);
       background: rgba(255, 255, 255, 0.7);
       font-weight: 600;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
     }
 
-    .back { font-weight: 600; }
+    .source { font-size: 0.9rem; color: #6b6259; margin-top: 12px; }
+  
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      background: #fff;
+    }
+
   </style>
 
 </head>
@@ -152,25 +150,53 @@
       <div>
         <div class="pill">مشروع</div>
         <h1>حدائق أشكار (Achakar Gardens)</h1>
-        <p>فلل فاخرة تبعد دقيقتين عن الشاطئ</p>
-        <p>فلل راقية في أشكار، طنجة، ابتداءً من 3,700,000 درهم. تصميم عصري وخصوصية وحياة قريبة من البحر.</p>
+        <p>فلل فاخرة تبعد دقيقتين عن شاطئ أشكار.</p>
+        <div class="meta-grid"><div class="meta-card"><strong>الحالة</strong><div>قيد الإنشاء</div></div>
+<div class="meta-card"><strong>التسليم</strong><div>2027</div></div>
+<div class="meta-card"><strong>السعر ابتداءً من</strong><div>3,700,000 درهم</div></div>
+<div class="meta-card"><strong>المساحة</strong><div>171–355 م²</div></div>
+<div class="meta-card"><strong>غرف النوم</strong><div>4</div></div>
+<div class="meta-card"><strong>الحمامات</strong><div>3–5</div></div>
+<div class="meta-card"><strong>الموقع</strong><div>أشكار، طنجة</div></div></div>
+        <a class="cta" href="maroc-real-estate-ar.html#contact">احجز زيارة</a>
       </div>
-      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80" alt="حدائق أشكار (Achakar Gardens)" />
+      <img src="assets/tanger/achakar-gardens/achakar-gardens-hero.png" alt="achakar-gardens" />
     </section>
 
-    <section class="card">
-      <div class="lists" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
-        <div>
-          <h2 style="font-family:'Playfair Display',serif;">الحقائق الأساسية</h2>
-          <ul><li>المساحة: 171–355 م²</li><li>غرف النوم: 4</li><li>الحمامات: 3–5</li><li>التسليم: 2027</li><li>الموقع: أشكار، طنجة</li></ul>
-        </div>
-        <div>
-          <h2 style="font-family:'Playfair Display',serif;">أبرز المزايا</h2>
-          <ul><li>مسبح خاص وآخر مشترك</li><li>حدائق وتراسات واسعة</li><li>قاعة رياضية خاصة</li><li>موقف سيارات تحت الأرض</li><li>على بعد دقيقتين من شاطئ أشكار</li></ul>
-        </div>
-      </div>
-      <div class="source" style="font-size:0.9rem;color:#6b6259;">Bron: <a href="https://immoworld.ma/nl/apartment/achakar-gardens-villas-for-sale-tangier/" target="_blank" rel="noopener">https://immoworld.ma/nl/apartment/achakar-gardens-villas-for-sale-tangier/</a></div>
-    </section>
+    <section class="section">
+  <h2>الوصف</h2>
+  <p>مشروع Achakar Gardens هو مجمّع سكني راقٍ يضم فللًا حديثة وفاخرة في واحد من أرقى أحياء طنجة.</p><p>قربه من شاطئ أشكار وكاب سبارتيل وكهوف هرقل يمنح بيئة طبيعية هادئة مع وصول سريع للمدينة.</p>
+</section>
+<section class="section">
+  <h2>المرافق</h2>
+  <ul><li>مسبح خاص وآخر مشترك</li><li>حدائق وتراسات واسعة</li><li>منطقة ألعاب للأطفال</li><li>قاعة رياضية خاصة</li><li>موقف سيارات تحت الأرض</li></ul>
+</section>
+<section class="section">
+  <h2>التشطيبات والمواد</h2>
+  <ul><li>أرضيات وخشب تكسية</li><li>أسقف جبسية معلّقة</li><li>رخام رمادي</li><li>عزل حراري وصوتي</li><li>تكييف مركزي</li><li>أدوات صحية Jacob Delafon</li><li>زجاج مزدوج</li></ul>
+</section>
+<section class="section">
+  <h2>لماذا الاستثمار</h2>
+  <ul><li>إمكانات إيجارية عالية لقربه من الشاطئ والمناطق السياحية</li><li>نمط حياة فاخر في بيئة آمنة وخاصة</li><li>ارتفاع قيمة متوقع في حي متنامٍ</li></ul>
+</section>
+<section class="section">
+  <h2>معرض الصور</h2>
+  <div class="gallery">
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-01.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-02.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-03.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-04.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-05.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-06.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-07.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-08.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-09.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-10.png" alt="achakar-gardens image" />
+    <img src="assets/tanger/achakar-gardens/achakar-gardens-gallery-11.png" alt="achakar-gardens image" />
+  </div>
+</section>
+
+    <div class="source">المصدر: <a href="https://immoworld.ma/nl/apartment/achakar-gardens-villas-for-sale-tangier/" target="_blank" rel="noopener">https://immoworld.ma/nl/apartment/achakar-gardens-villas-for-sale-tangier/</a></div>
   </main>
 </body>
 </html>

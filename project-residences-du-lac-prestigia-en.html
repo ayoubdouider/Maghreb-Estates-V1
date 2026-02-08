@@ -44,7 +44,7 @@
     .wrap {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 24px 60px;
+      padding: 0 24px 70px;
     }
 
     .hero {
@@ -52,92 +52,73 @@
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 24px;
       align-items: center;
-      padding: 36px 0 18px;
+      padding: 40px 0 24px;
     }
 
-    .hero h1 {
-      font-family: "Playfair Display", serif;
-      margin-bottom: 10px;
-      font-size: clamp(2rem, 3.5vw, 3rem);
-    }
-
-    .hero p { line-height: 1.7; }
-
-    .lang-switch {
-      display: inline-flex;
-      gap: 12px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-bottom: 16px;
-    }
-
-    .lang-switch a {
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(31, 59, 52, 0.08);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
-      margin-top: 28px;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-rows: auto 1fr;
-    }
-
-    .card img {
+    .hero img {
       width: 100%;
-      height: 210px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      height: 320px;
       object-fit: cover;
     }
 
-    .card-body {
-      padding: 18px;
-      display: grid;
-      gap: 10px;
-    }
+    h1 { font-family: "Playfair Display", serif; margin-bottom: 10px; }
+    h2 { font-family: "Playfair Display", serif; margin: 0 0 14px; }
 
     .pill {
       display: inline-flex;
-      align-items: center;
-      gap: 6px;
       padding: 6px 12px;
       border-radius: 999px;
       background: rgba(200, 107, 60, 0.12);
       color: var(--copper);
-      font-size: 0.85rem;
       font-weight: 600;
-      width: fit-content;
+      font-size: 0.85rem;
     }
 
-    .facts {
-      margin: 0;
-      padding-inline-start: 18px;
-      color: #4a433c;
+    .meta-grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
     }
 
-    .btn-secondary {
-      margin-top: 6px;
+    .meta-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid rgba(27, 26, 23, 0.08);
+    }
+
+    .section {
+      margin-top: 28px;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    ul { margin: 0; padding-inline-start: 18px; }
+
+    .back { font-weight: 600; }
+
+    .cta {
+      margin-top: 18px;
+      display: inline-flex;
       padding: 10px 16px;
       border-radius: 999px;
       border: 1px solid rgba(27, 26, 23, 0.2);
       background: rgba(255, 255, 255, 0.7);
       font-weight: 600;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
     }
 
-    .back { font-weight: 600; }
+    .source { font-size: 0.9rem; color: #6b6259; margin-top: 12px; }
   </style>
 
 </head>
@@ -152,25 +133,31 @@
       <div>
         <div class="pill">Project</div>
         <h1>Les Résidences du Lac (Prestigia)</h1>
-        <p>New phase in Ryad Al Andalous, Hay Riad</p>
-        <p>Residence with contemporary architecture, premium finishes, and comprehensive amenities in Hay Riad, Rabat.</p>
+        <p>New phase in Ryad Al Andalous with spacious apartments and premium finishes.</p>
+        <div class="meta-grid"><div class="meta-card"><strong>Status</strong><div>Under construction</div></div>
+<div class="meta-card"><strong>Delivery</strong><div>Late 2028</div></div>
+<div class="meta-card"><strong>Starting price</strong><div>3,000,000 DH</div></div>
+<div class="meta-card"><strong>Surface</strong><div>110–190 m²</div></div>
+<div class="meta-card"><strong>Bedrooms</strong><div>2–3</div></div>
+<div class="meta-card"><strong>Location</strong><div>Hay Riad, Rabat</div></div></div>
+        <a class="cta" href="maroc-real-estate-en.html#contact">Schedule a visit</a>
       </div>
       <img src="https://cdn.sanity.io/images/n2i0cmq4/production/cc24270870f9007981eed88ce6448a5e6ae85d31-8189x5456.jpg?fm=webp&fit=clip&auto=format" alt="Les Résidences du Lac (Prestigia)" />
     </section>
 
-    <section class="card">
-      <div class="lists" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
-        <div>
-          <h2 style="font-family:'Playfair Display',serif;">Key facts</h2>
-          <ul><li>Surface: 110–190 m²</li><li>Bedrooms: 2–3</li><li>Starting price: 3,000,000 DH</li><li>Status: under construction</li><li>Location: Hay Riad, Rabat</li></ul>
-        </div>
-        <div>
-          <h2 style="font-family:'Playfair Display',serif;">Highlights</h2>
-          <ul><li>Large terraces and abundant light</li><li>Primary suite with dressing</li><li>Green areas and amenities</li><li>Close to schools and healthcare</li></ul>
-        </div>
-      </div>
-      <div class="source" style="font-size:0.9rem;color:#6b6259;">Bron: <a href="https://agenz.ma/fr/immobilier-neuf/immo-rabat/hay-riad/ryad-al-andalous-prestigia" target="_blank" rel="noopener">https://agenz.ma/fr/immobilier-neuf/immo-rabat/hay-riad/ryad-al-andalous-prestigia</a></div>
-    </section>
+    <section class="section">
+  <h2>Description</h2>
+  <p>A new phase in Ryad Al Andalous with modern architecture and a privileged living environment in Hay Riad.</p><p>Apartments feature bright living rooms, terraces, a primary suite with dressing, and an equipped kitchen.</p>
+</section>
+<section class="section">
+  <h2>Unit mix</h2>
+  <ul><li>2 or 3 bedrooms</li><li>Bright living room with large windows and terrace</li><li>Primary suite with dressing and private bath</li><li>Second bedroom with its own bathroom</li><li>Some layouts include staff room</li></ul>
+</section>
+<section class="section">
+  <h2>Amenities</h2>
+  <ul><li>Green spaces</li><li>Swimming pools</li><li>Retail & restaurants gallery</li><li>Schools and healthcare</li><li>Mosque</li><li>Cinema complex</li><li>Offices and sports centers</li></ul>
+</section>
+    <div class="source">Source: <a href="https://agenz.ma/fr/immobilier-neuf/immo-rabat/hay-riad/ryad-al-andalous-prestigia" target="_blank" rel="noopener">https://agenz.ma/fr/immobilier-neuf/immo-rabat/hay-riad/ryad-al-andalous-prestigia</a></div>
   </main>
 </body>
 </html>

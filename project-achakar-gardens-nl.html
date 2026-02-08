@@ -192,6 +192,28 @@
       .gallery .big { grid-row: auto; height: 280px; }
       .nearby { grid-template-columns: 1fr; }
     }
+  
+    .gallery-slider {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      height: 420px;
+      background: #e9edf5;
+    }
+
+    .gallery-slider img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .gallery-slider img.active { opacity: 1; }
+
   </style>
 </head>
 <body>
@@ -214,8 +236,8 @@
   </div>
 
   <section class="hero">
-    <div class="hero-media" data-slider>
-      <img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-hero.png" alt="Achakar Gardens" /><img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-01.png" alt="Achakar Gardens" /><img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-02.png" alt="Achakar Gardens" /><img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-03.png" alt="Achakar Gardens" /><img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-04.png" alt="Achakar Gardens" /><img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-05.png" alt="Achakar Gardens" /><img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-06.png" alt="Achakar Gardens" /><img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-07.png" alt="Achakar Gardens" /><img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-08.png" alt="Achakar Gardens" /><img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-09.png" alt="Achakar Gardens" /><img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-10.png" alt="Achakar Gardens" /><img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-11.png" alt="Achakar Gardens" />
+    <div class="hero-media">
+      <img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-hero.png" alt="Achakar Gardens" class="active" />
     </div>
     <div class="hero-content">
       <div class="hero-left">
@@ -280,12 +302,19 @@
 
   <section id="gallery" class="section">
     <h2>Gallery</h2>
-    <div class="gallery">
-      <img class="big" src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-01.png" alt="Gallery" />
-      <img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-02.png" alt="Gallery" />
-      <img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-03.png" alt="Gallery" />
-      <img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-04.png" alt="Gallery" />
-      <img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-05.png" alt="Gallery" />
+    <div class="gallery-slider" data-gallery>
+      <img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-01.png" alt="Gallery" />
+<img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-02.png" alt="Gallery" />
+<img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-03.png" alt="Gallery" />
+<img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-04.png" alt="Gallery" />
+<img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-gallery-05.png" alt="Gallery" />
+      <div class="slider-dots">
+        <span class="slider-dot"></span>
+<span class="slider-dot"></span>
+<span class="slider-dot"></span>
+<span class="slider-dot"></span>
+<span class="slider-dot"></span>
+      </div>
     </div>
   </section>
 
@@ -314,18 +343,26 @@
     </div>
   </section>
 
+  
   <script>
-    const slider = document.querySelector('[data-slider]');
-    if (slider) {
-      const images = Array.from(slider.querySelectorAll('img'));
+    const rotate = (root) => {
+      const images = Array.from(root.querySelectorAll('img'));
+      const dots = Array.from(root.querySelectorAll('.slider-dot'));
+      if (!images.length) return;
       let idx = 0;
-      images[0].classList.add('active');
-      setInterval(() => {
-        images[idx].classList.remove('active');
-        idx = (idx + 1) % images.length;
-        images[idx].classList.add('active');
-      }, 4000);
-    }
+      const show = (i) => {
+        images.forEach((img, j) => img.classList.toggle('active', j === i));
+        dots.forEach((dot, j) => dot.classList.toggle('active', j === i));
+        idx = i;
+      };
+      dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
+      show(0);
+      setInterval(() => show((idx + 1) % images.length), 5000);
+    };
+
+    const gallery = document.querySelector('[data-gallery]');
+    if (gallery) rotate(gallery);
   </script>
+
 </body>
 </html>

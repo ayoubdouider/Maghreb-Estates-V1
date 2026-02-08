@@ -140,6 +140,53 @@
       font-weight: 600;
       cursor: pointer;
     }
+    .hero-cta-mobile {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--navy);
+      color: #fff;
+      font-weight: 600;
+      width: fit-content;
+    }
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 14, 28, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+    .modal.open { display: flex; }
+    .modal-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 18px;
+      width: min(520px, 100%);
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 12px;
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .modal-close {
+      border: none;
+      background: #eef1f7;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+    }
 
     .tabs {
       position: sticky;
@@ -211,7 +258,8 @@
       .hero-left { color: var(--ink); }
       .hero-left .pill { background: #e8ecf6; color: var(--navy); }
       .hero-left .meta { font-size: 0.85rem; color: #5c6472; }
-      .hero-form { width: 100%; }
+      .hero-form { display: none; }
+      .hero-cta-mobile { display: inline-flex; }
       .section { padding: 36px 20px; }
       .facts li { flex-direction: column; align-items: flex-start; gap: 6px; }
       .gallery-slider { height: 280px; }
@@ -339,6 +387,7 @@
           <span>Oplevering: 2027</span>
         </div>
         <p>Luxe villa’s op 2 minuten van het strand van Achakar.</p>
+        <button class="hero-cta-mobile" type="button" data-open-modal>Neem contact op</button>
       </div>
       <form class="hero-form">
         <h3>Neem contact op</h3>
@@ -461,8 +510,21 @@
     </div>
   </section>
 
-  
-  
+  <div class="modal" data-modal>
+    <div class="modal-card">
+      <div class="modal-header">
+        <strong>Neem contact op</strong>
+        <button class="modal-close" type="button" data-close-modal>&times;</button>
+      </div>
+      <input placeholder="Voornaam" />
+      <input placeholder="Achternaam" />
+      <input placeholder="E-mail" />
+      <input placeholder="Telefoon" />
+      <textarea rows="3" placeholder="Bericht"></textarea>
+      <button type="button" class="hero-cta-mobile" style="display:inline-flex;justify-content:center;">Verstuur</button>
+    </div>
+  </div>
+
   <script>
     const rotate = (root) => {
       const images = Array.from(root.querySelectorAll('img'));
@@ -498,6 +560,21 @@
 
     const gallery = document.querySelector('[data-gallery]');
     if (gallery) rotate(gallery);
+
+    const modal = document.querySelector('[data-modal]');
+    const openBtn = document.querySelector('[data-open-modal]');
+    const closeBtn = document.querySelector('[data-close-modal]');
+    if (modal && openBtn) {
+      const close = () => modal.classList.remove('open');
+      openBtn.addEventListener('click', () => modal.classList.add('open'));
+      closeBtn?.addEventListener('click', close);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) close();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') close();
+      });
+    }
   </script>
 
 

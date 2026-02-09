@@ -1,13 +1,242 @@
 <!doctype html>
-<html lang="nl">
+<html lang="nl" dir="ltr">
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="refresh" content="0; url=maroc-real-estate-nl.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Atlas Coast Realty</title>
-  <link rel="canonical" href="maroc-real-estate-nl.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --navy: #0c1c3a;
+      --navy-700: #0b1630;
+      --gold: #c9a05a;
+      --sand: #f5f1ea;
+      --ink: #10131a;
+      --muted: #5c6472;
+      --card: #ffffff;
+      --shadow: 0 18px 50px rgba(13, 20, 37, 0.12);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Manrope", sans-serif; color: var(--ink); background: #f4f6fb; }
+    a { color: inherit; text-decoration: none; }
+    .topbar { background: var(--navy-700); color: #fff; font-size: 0.85rem; }
+    .topbar .wrap { max-width: 1200px; margin: 0 auto; padding: 10px 20px; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+    .lang-links { display: flex; gap: 10px; align-items: center; }
+    .lang-link { color: #dfe3f1; font-weight: 600; }
+    .lang-link.active { color: #fff; text-decoration: underline; }
+    .nav { background: #fff; border-bottom: 1px solid #e6e8ef; position: sticky; top: 0; z-index: 10; }
+    .nav .wrap { max-width: 1200px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .logo { font-family: "Playfair Display", serif; font-size: 20px; letter-spacing: 0.4px; color: var(--navy); }
+    .nav-links { display: flex; gap: 16px; font-weight: 600; color: #3b4252; overflow-x: auto; scrollbar-width: none; }
+    .nav-links::-webkit-scrollbar { display: none; }
+
+    .hero { position: relative; color: #fff; }
+    .hero-media { position: relative; height: 520px; overflow: hidden; }
+    .hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(9,18,35,0.75), rgba(9,18,35,0.2)); }
+    .hero-content { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .hero-card { z-index: 2; max-width: 620px; display: grid; gap: 16px; }
+    .hero-card h1 { font-size: clamp(2.2rem, 4vw, 3.8rem); margin: 0; font-family: "Playfair Display", serif; }
+    .hero-card p { margin: 0; font-size: 1.05rem; color: #e6e8ef; }
+    .hero-card .cta { display: inline-flex; padding: 12px 22px; border-radius: 999px; background: #fff; color: var(--navy); font-weight: 700; width: fit-content; }
+
+    .section { max-width: 1200px; margin: 0 auto; padding: 48px 20px; }
+    .section h2 { font-family: "Playfair Display", serif; margin-bottom: 10px; }
+
+    .city-tabs { display: flex; gap: 18px; border-bottom: 2px solid #e3e6ef; margin-bottom: 24px; overflow-x: auto; }
+    .city-tab { background: transparent; border: none; padding: 10px 4px 14px; font-weight: 700; color: #4b5563; cursor: pointer; border-bottom: 3px solid transparent; font-size: 1rem; white-space: nowrap; }
+    .city-tab[aria-selected="true"] { color: var(--navy); border-bottom-color: var(--navy); }
+
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .project-card { position: relative; border-radius: 16px; overflow: hidden; min-height: 220px; box-shadow: var(--shadow); background: #dfe3ef; }
+    .project-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .project-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,12,23,0.05), rgba(7,12,23,0.7)); }
+    .project-card-overlay { position: absolute; inset: auto 0 0 0; padding: 16px; color: #fff; z-index: 2; display: grid; gap: 6px; }
+    .project-card-overlay span { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: #d9dde8; }
+    .project-card-overlay h3 { margin: 0; font-size: 1.1rem; }
+
+    @media (max-width: 980px) {
+      .hero-content { padding-top: 60px; }
+    }
+    @media (max-width: 720px) {
+      .nav .wrap { flex-direction: column; align-items: flex-start; }
+      .nav-links { flex-wrap: wrap; gap: 10px; padding-bottom: 6px; }
+      .hero-media { height: 420px; }
+      .hero-content { position: static; padding: 24px 20px 0; }
+      .hero-card { color: var(--ink); }
+      .hero-card p { color: #4b5563; }
+      .hero-media::after { background: linear-gradient(120deg, rgba(9,18,35,0.25), rgba(9,18,35,0.1)); }
+      .section { padding: 36px 20px; }
+    }
+    @media (max-width: 520px) {
+      .hero-media { height: 340px; }
+      .hero-card h1 { font-size: 2rem; }
+    }
+  </style>
+
 </head>
 <body>
-  <p>Je wordt doorgestuurd. Als dit niet werkt, ga naar <a href="maroc-real-estate-nl.html">maroc-real-estate-nl.html</a>.</p>
+  <div class="topbar"><div class="wrap"><div>Atlas Coast Realty · Marokko</div><div class="lang-links"><a href="maroc-real-estate-nl.html" class="lang-link active">NL</a><a href="maroc-real-estate-en.html" class="lang-link">EN</a><a href="maroc-real-estate-fr.html" class="lang-link">FR</a><a href="maroc-real-estate-ar.html" class="lang-link">AR</a></div></div></div>
+  <div class="nav"><div class="wrap"><div class="logo">Atlas Coast Realty</div><div class="nav-links"><a href="city-tanger-nl.html">Tanger</a><a href="city-rabat-nl.html">Rabat</a><a href="city-casablanca-nl.html">Casablanca</a><a href="city-marrakesh-nl.html">Marrakesh</a></div></div></div>
+
+  <section class="hero">
+    <div class="hero-media"><img src="https://cdn.pixabay.com/photo/2017/10/24/16/19/tangier-2885105_1280.jpg" alt="Vastgoed in Marokko" /></div>
+    <div class="hero-content">
+      <div class="hero-card">
+        <h1>Vastgoed in Marokko</h1>
+        <p>Ontdek zorgvuldig geselecteerde projecten in de grootste steden van Marokko.</p>
+        <a class="cta" href="#projects">Bekijk projecten</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <h2>Projecten per stad</h2>
+    <p>Selecteer een stad om alle projecten te bekijken.</p>
+    <div class="city-tabs" role="tablist"><button class="city-tab" data-city="tanger" aria-selected="true">Tanger</button><button class="city-tab" data-city="rabat" aria-selected="false">Rabat</button><button class="city-tab" data-city="casablanca" aria-selected="false">Casablanca</button><button class="city-tab" data-city="marrakesh" aria-selected="false">Marrakesh</button></div>
+    <div class="project-grid">
+            <a class="project-card" href="project-achakar-gardens-nl.html" data-city="tanger">
+              <img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/achakar-gardens/achakar-gardens-hero.png" alt="Achakar Gardens" loading="lazy" />
+              <div class="project-card-overlay">
+                <span>Tanger</span>
+                <h3>Achakar Gardens</h3>
+              </div>
+            </a>
+                
+
+            <a class="project-card" href="project-pinea-hills-nl.html" data-city="tanger">
+              <img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/pinea-hills/pinea-hills-hero.png" alt="Pinea Hills" loading="lazy" />
+              <div class="project-card-overlay">
+                <span>Tanger</span>
+                <h3>Pinea Hills</h3>
+              </div>
+            </a>
+                
+
+            <a class="project-card" href="project-tanja-alya-nl.html" data-city="tanger">
+              <img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/tanja-alya/tanja-alya-hero.png" alt="Marina View (Tanja Alya)" loading="lazy" />
+              <div class="project-card-overlay">
+                <span>Tanger</span>
+                <h3>Marina View (Tanja Alya)</h3>
+              </div>
+            </a>
+                
+
+            <a class="project-card" href="project-paris-residence-nl.html" data-city="tanger">
+              <img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/paris-residence/paris-residence-hero.png" alt="Paris Residence" loading="lazy" />
+              <div class="project-card-overlay">
+                <span>Tanger</span>
+                <h3>Paris Residence</h3>
+              </div>
+            </a>
+                
+
+            <a class="project-card" href="project-rivana-residence-nl.html" data-city="tanger">
+              <img src="https://ayoubdouider.github.io/Maghreb-Estates/assets/rivana-residence/rivana-residence-hero.png" alt="Residence Rivana" loading="lazy" />
+              <div class="project-card-overlay">
+                <span>Tanger</span>
+                <h3>Residence Rivana</h3>
+              </div>
+            </a>
+                
+
+            <a class="project-card" href="project-patio-verde-nl.html" data-city="rabat">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80" alt="Ryad Al Andalous – Patio Verde" loading="lazy" />
+              <div class="project-card-overlay">
+                <span>Rabat</span>
+                <h3>Ryad Al Andalous – Patio Verde</h3>
+              </div>
+            </a>
+                
+
+            <a class="project-card" href="project-residences-du-lac-prestigia-nl.html" data-city="rabat">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80" alt="Les Résidences du Lac (Prestigia)" loading="lazy" />
+              <div class="project-card-overlay">
+                <span>Rabat</span>
+                <h3>Les Résidences du Lac (Prestigia)</h3>
+              </div>
+            </a>
+                
+
+            <a class="project-card" href="project-residences-du-lac-avito-nl.html" data-city="rabat">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80" alt="Ryad Al Andalous – Les Résidences du Lac" loading="lazy" />
+              <div class="project-card-overlay">
+                <span>Rabat</span>
+                <h3>Ryad Al Andalous – Les Résidences du Lac</h3>
+              </div>
+            </a>
+                
+
+            <a class="project-card" href="city-casablanca-nl.html" data-city="casablanca">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80" alt="Casablanca Project 01" loading="lazy" />
+              <div class="project-card-overlay">
+                <span>Casablanca</span>
+                <h3>Casablanca Project 01</h3>
+              </div>
+            </a>
+                
+
+            <a class="project-card" href="city-casablanca-nl.html" data-city="casablanca">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80" alt="Casablanca Project 02" loading="lazy" />
+              <div class="project-card-overlay">
+                <span>Casablanca</span>
+                <h3>Casablanca Project 02</h3>
+              </div>
+            </a>
+                
+
+            <a class="project-card" href="city-casablanca-nl.html" data-city="casablanca">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80" alt="Casablanca Project 03" loading="lazy" />
+              <div class="project-card-overlay">
+                <span>Casablanca</span>
+                <h3>Casablanca Project 03</h3>
+              </div>
+            </a>
+                
+
+            <a class="project-card" href="city-marrakesh-nl.html" data-city="marrakesh">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80" alt="Marrakesh Project 01" loading="lazy" />
+              <div class="project-card-overlay">
+                <span>Marrakesh</span>
+                <h3>Marrakesh Project 01</h3>
+              </div>
+            </a>
+                
+
+            <a class="project-card" href="city-marrakesh-nl.html" data-city="marrakesh">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80" alt="Marrakesh Project 02" loading="lazy" />
+              <div class="project-card-overlay">
+                <span>Marrakesh</span>
+                <h3>Marrakesh Project 02</h3>
+              </div>
+            </a>
+                
+
+            <a class="project-card" href="city-marrakesh-nl.html" data-city="marrakesh">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80" alt="Marrakesh Project 03" loading="lazy" />
+              <div class="project-card-overlay">
+                <span>Marrakesh</span>
+                <h3>Marrakesh Project 03</h3>
+              </div>
+            </a>
+                </div>
+  </section>
+
+  <script>
+    const tabs = document.querySelectorAll('.city-tab');
+    const cards = document.querySelectorAll('.project-card');
+    const setCity = (city) => {
+      tabs.forEach(t => t.setAttribute('aria-selected', t.dataset.city === city ? 'true' : 'false'));
+      cards.forEach(card => {
+        card.style.display = card.dataset.city === city ? 'block' : 'none';
+      });
+    };
+    tabs.forEach(tab => tab.addEventListener('click', () => setCity(tab.dataset.city)));
+    setCity('tanger');
+  </script>
 </body>
 </html>

@@ -114,6 +114,62 @@
       .hero-form { padding: 16px; }
       .gallery-slider { height: 240px; }
     }
+  
+    .contact-section { max-width: 1200px; margin: 0 auto; padding: 48px 20px; }
+    .contact-card { background: #fff; border-radius: 20px; box-shadow: var(--shadow); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); overflow: hidden; }
+    .contact-media { position: relative; min-height: 260px; background: linear-gradient(140deg, rgba(12,28,58,0.8), rgba(12,28,58,0.2)), url('https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat; color: #fff; padding: 32px; display: grid; align-content: end; }
+    .contact-media h3 { margin: 0 0 8px; font-family: "Playfair Display", serif; font-size: 1.6rem; }
+    .contact-media p { margin: 0; color: #e6e8ef; }
+    .contact-form { padding: 32px; display: grid; gap: 12px; }
+    .contact-form .row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .contact-form input, .contact-form textarea { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid #e3e6ef; font-family: inherit; }
+    .contact-form button { background: var(--navy); color: #fff; border: none; padding: 12px; border-radius: 999px; font-weight: 600; cursor: pointer; }
+
+    .brochure-section { max-width: 1200px; margin: 0 auto; padding: 0 20px 48px; }
+    .brochure-card { background: #fff; border-radius: 20px; box-shadow: var(--shadow); display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px; align-items: center; padding: 28px; }
+    .brochure-card img { width: 100%; max-width: 360px; justify-self: end; }
+    .brochure-kicker { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.8rem; color: #8b93a6; }
+    .brochure-card h3 { margin: 8px 0; font-family: "Playfair Display", serif; }
+    .brochure-card p { margin: 0 0 16px; color: var(--muted); }
+    .brochure-card a { display: inline-flex; padding: 12px 22px; border-radius: 999px; background: #d04a02; color: #fff; font-weight: 700; width: fit-content; }
+
+    .site-footer { background: var(--navy-700); color: #dfe3f1; padding: 48px 20px 24px; }
+    .footer-wrap { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr repeat(3, 1fr) 1.2fr; gap: 24px; }
+    .footer-logo { font-family: "Playfair Display", serif; font-size: 22px; color: #fff; }
+    .footer-column h4 { margin: 0 0 12px; color: #fff; font-size: 1rem; }
+    .footer-column ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .footer-column a { color: #dfe3f1; }
+    .footer-bottom { max-width: 1200px; margin: 32px auto 0; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.15); font-size: 0.85rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+    [dir="rtl"] .contact-card, [dir="rtl"] .brochure-card, [dir="rtl"] .footer-wrap { direction: rtl; }
+    [dir="rtl"] .contact-form .row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    [dir="rtl"] .footer-bottom { flex-direction: row-reverse; }
+
+    @media (max-width: 980px) {
+      .contact-card { grid-template-columns: 1fr; }
+      .brochure-card { grid-template-columns: 1fr; text-align: center; }
+      .brochure-card img { justify-self: center; }
+      .footer-wrap { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      .contact-form .row { grid-template-columns: 1fr; }
+      .brochure-card { padding: 20px; }
+      .footer-wrap { grid-template-columns: 1fr; }
+      .footer-bottom { justify-content: center; text-align: center; }
+    }
+
+  
+    .coming-section { max-width: 1200px; margin: 0 auto; padding: 0 20px 48px; }
+    .coming-card { background: #f0f1f4; border: 1px solid #e3e6ef; border-radius: 20px; padding: 28px; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px; align-items: center; }
+    .coming-card h3 { margin: 8px 0; font-family: "Playfair Display", serif; }
+    .coming-card p { margin: 0; color: var(--muted); }
+    .coming-card .badge { display: inline-flex; padding: 6px 12px; border-radius: 999px; background: #d9dce3; color: #4b5563; font-weight: 600; width: fit-content; }
+    .coming-card .cta { display: inline-flex; padding: 12px 22px; border-radius: 999px; background: #b7bcc8; color: #ffffff; font-weight: 700; width: fit-content; }
+    @media (max-width: 980px) {
+      .coming-card { grid-template-columns: 1fr; text-align: center; }
+      .coming-card .badge, .coming-card .cta { margin: 0 auto; }
+    }
+
   </style>
 
 </head>
@@ -125,5 +181,101 @@
     <p>Choose a city to explore its projects.</p>
     <div class="city-grid"><div class="city-card"><h3>Achakar Gardens</h3><p>Luxury villas just 2 minutes from Achakar Beach.</p><a href="project-achakar-gardens-en.html">View projects</a></div><div class="city-card"><h3>Pinea Hills</h3><p>Luxury apartments and penthouses with sea views in Ghandouri.</p><a href="project-pinea-hills-en.html">View projects</a></div><div class="city-card"><h3>Tanja Alya</h3><p>Iconic apartments in the new Tanja Waterfront district.</p><a href="project-tanja-alya-en.html">View projects</a></div><div class="city-card"><h3>Paris Residence</h3><p>City‑center luxury apartments near Iberia.</p><a href="project-paris-residence-en.html">View projects</a></div><div class="city-card"><h3>Rivana Residence</h3><p>Studios and apartments in a central Tangier neighborhood.</p><a href="project-rivana-residence-en.html">View projects</a></div></div>
   </section>
+
+  <section class="contact-section">
+    <div class="contact-card">
+      <div class="contact-media">
+        <div>
+          <div class="brochure-kicker">Get in touch</div>
+          <h3>Schedule a call</h3>
+          <p>Share your details and we will contact you shortly.</p>
+        </div>
+      </div>
+      <form class="contact-form">
+        <div class="row">
+          <input type="text" placeholder="First name" />
+          <input type="text" placeholder="Last name" />
+        </div>
+        <input type="email" placeholder="Email" />
+        <input type="tel" placeholder="Phone" />
+        <textarea rows="4" placeholder="Message"></textarea>
+        <button type="button">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="brochure-section">
+    <div class="brochure-card">
+      <div>
+        <div class="brochure-kicker">Free brochure</div>
+        <h3>Real estate in Morocco</h3>
+        <p>Download our free brochure with market insights and project overview.</p>
+        <a href="#">Download now</a>
+      </div>
+      <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80" alt="Real estate in Morocco" />
+    </div>
+  </section>
+
+  
+  <section class="coming-section">
+    <div class="coming-card">
+      <div>
+        <span class="badge">Coming soon</span>
+        <h3>List your property for rent</h3>
+        <p>Soon you will be able to list your property or project for rent with us.</p>
+      </div>
+      <div style="display:flex; justify-content:center;">
+        <span class="cta">Coming soon</span>
+      </div>
+    </div>
+  </section>
+
+<footer class="site-footer">
+    <div class="footer-wrap">
+      <div class="footer-column">
+        <div class="footer-logo">Atlas Coast Realty</div>
+        <p>Your partner for real estate in Morocco with local expertise and trusted guidance.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Awards</a></li>
+          <li><a href="#">International</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Buy</a></li>
+          <li><a href="#">Sell</a></li>
+          <li><a href="#">List a project</a></li>
+          <li><a href="#">Consultation</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Cities</h4>
+        <ul>
+          <li><a href="city-tanger-en.html">Tangier</a></li>
+          <li><a href="city-rabat-en.html">Rabat</a></li>
+          <li><a href="city-casablanca-en.html">Casablanca</a></li>
+          <li><a href="city-marrakesh-en.html">Marrakesh</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Contact</h4>
+        <ul>
+          <li>+212 5 39 000 000</li>
+          <li>info@atlascoastrealty.com</li>
+          <li>Tangier, Morocco</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Atlas Coast Realty. All rights reserved.</span>
+    </div>
+  </footer>
+
 </body>
 </html>

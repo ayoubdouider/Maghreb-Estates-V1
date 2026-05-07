@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Marktanalyse 2026 — Maghreb Estates</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -312,6 +314,65 @@
       font-family: var(--font-sans);
     }
 
+    /* ===== MAP ===== */
+    #map { height: 520px; border-radius: 3px; z-index: 1; }
+    .leaflet-container { font-family: var(--font-sans); background: var(--cream-dark); }
+    .map-tooltip {
+      font-family: var(--font-sans);
+      background: var(--green);
+      color: var(--cream);
+      border: none;
+      border-radius: 3px;
+      padding: 0;
+      box-shadow: 0 4px 20px rgba(28,46,29,0.35);
+      min-width: 220px;
+    }
+    .map-tooltip .leaflet-popup-content-wrapper {
+      background: var(--green);
+      border-radius: 3px;
+      padding: 0;
+      box-shadow: none;
+    }
+    .map-tooltip .leaflet-popup-tip { background: var(--green); }
+    .map-tooltip .leaflet-popup-content { margin: 0; }
+    .tt-inner { padding: 16px 18px; }
+    .tt-stad {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(245,241,232,0.45);
+      margin-bottom: 4px;
+    }
+    .tt-naam {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 14px;
+      line-height: 1.1;
+    }
+    .tt-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 7px;
+      gap: 16px;
+    }
+    .tt-lbl { font-size: 10px; color: rgba(245,241,232,0.5); letter-spacing: 0.08em; text-transform: uppercase; }
+    .tt-val { font-family: var(--font-mono); font-size: 13px; color: var(--cream); font-weight: 500; }
+    .tt-val-accent { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: #E8855A; }
+    .tt-bar-wrap { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(245,241,232,0.1); }
+    .tt-bar-track { height: 4px; background: rgba(245,241,232,0.12); border-radius: 2px; margin-top: 5px; }
+    .tt-bar-fill { height: 100%; border-radius: 2px; background: #E8855A; }
+    .map-legend {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 900px) {
       .dash-nav, .hero-strip, .dash-main, .dash-footer { padding-left: 20px; padding-right: 20px; }
@@ -449,6 +510,14 @@
         </table>
       </div>
 
+      <!-- MAP -->
+      <div class="chart-card" style="margin-bottom:20px">
+        <div class="chart-title">Kaart — Wijken per stad</div>
+        <div class="chart-sub">Klik of hover over een wijk voor gedetailleerde data · cirkelgrootte = relatieve prijs/m²</div>
+        <div id="map"></div>
+        <div class="map-legend" id="map-legend"></div>
+      </div>
+
     </div><!-- end dash-main -->
 
     <div class="dash-footer">
@@ -501,54 +570,54 @@
       },
       wijk_data: {
         "Casablanca": [
-          { naam:"Casablanca Marina",       pm2:30660, count:17  },
-          { naam:"Anfa Supérieur",          pm2:23889, count:33  },
-          { naam:"Casablanca Finance City", pm2:23185, count:46  },
-          { naam:"Ain Diab",                pm2:21818, count:149 },
-          { naam:"Oasis",                   pm2:20377, count:49  },
-          { naam:"Californie",              pm2:18500, count:82  },
-          { naam:"Racine",                  pm2:17200, count:61  },
-          { naam:"Maarif",                  pm2:16000, count:94  },
+          { naam:"Casablanca Marina",       pm2:30660, count:17,  lat:33.6020, lng:-7.6311 },
+          { naam:"Anfa Supérieur",          pm2:23889, count:33,  lat:33.5889, lng:-7.6539 },
+          { naam:"Casablanca Finance City", pm2:23185, count:46,  lat:33.5731, lng:-7.6415 },
+          { naam:"Ain Diab",                pm2:21818, count:149, lat:33.5892, lng:-7.6711 },
+          { naam:"Oasis",                   pm2:20377, count:49,  lat:33.5608, lng:-7.6089 },
+          { naam:"Californie",              pm2:18500, count:82,  lat:33.5783, lng:-7.6522 },
+          { naam:"Racine",                  pm2:17200, count:61,  lat:33.5956, lng:-7.6378 },
+          { naam:"Maarif",                  pm2:16000, count:94,  lat:33.5839, lng:-7.6339 },
         ],
         "Marrakech": [
-          { naam:"Rahba Kedima",   pm2:40132, count:8  },
-          { naam:"Hay Al Hassani", pm2:29333, count:5  },
-          { naam:"Cellar Agdal",   pm2:27368, count:7  },
-          { naam:"Rmila",          pm2:26717, count:10 },
-          { naam:"Kennaria",       pm2:26000, count:9  },
-          { naam:"Riad Zitoun",    pm2:25000, count:15 },
-          { naam:"Sidi Bou Amar",  pm2:24894, count:12 },
-          { naam:"Guéliz",         pm2:22000, count:88 },
+          { naam:"Rahba Kedima",   pm2:40132, count:8,  lat:31.6306, lng:-7.9875 },
+          { naam:"Hay Al Hassani", pm2:29333, count:5,  lat:31.6164, lng:-8.0247 },
+          { naam:"Cellar Agdal",   pm2:27368, count:7,  lat:31.6333, lng:-8.0089 },
+          { naam:"Rmila",          pm2:26717, count:10, lat:31.6289, lng:-7.9878 },
+          { naam:"Kennaria",       pm2:26000, count:9,  lat:31.6286, lng:-7.9889 },
+          { naam:"Riad Zitoun",    pm2:25000, count:15, lat:31.6247, lng:-7.9836 },
+          { naam:"Sidi Bou Amar",  pm2:24894, count:12, lat:31.6175, lng:-7.9875 },
+          { naam:"Guéliz",         pm2:22000, count:88, lat:31.6337, lng:-8.0139 },
         ],
         "Tanger": [
-          { naam:"Tanger City Center", pm2:29247, count:40 },
-          { naam:"Mediouna",           pm2:26975, count:5  },
-          { naam:"De La Plage",        pm2:23606, count:64 },
-          { naam:"Sania",              pm2:22926, count:27 },
-          { naam:"Malabata",           pm2:20792, count:95 },
-          { naam:"Mozart",             pm2:20289, count:10 },
-          { naam:"Port Tanger ville",  pm2:20079, count:7  },
-          { naam:"Balcony Centre",     pm2:20000, count:5  },
+          { naam:"Tanger City Center", pm2:29247, count:40, lat:35.7706, lng:-5.7989 },
+          { naam:"Mediouna",           pm2:26975, count:5,  lat:35.6767, lng:-5.9119 },
+          { naam:"De La Plage",        pm2:23606, count:64, lat:35.7731, lng:-5.8022 },
+          { naam:"Sania",              pm2:22926, count:27, lat:35.7528, lng:-5.8219 },
+          { naam:"Malabata",           pm2:20792, count:95, lat:35.7867, lng:-5.7603 },
+          { naam:"Mozart",             pm2:20289, count:10, lat:35.7639, lng:-5.8239 },
+          { naam:"Port Tanger ville",  pm2:20079, count:7,  lat:35.7739, lng:-5.8072 },
+          { naam:"Balcony Centre",     pm2:20000, count:5,  lat:35.7694, lng:-5.8053 },
         ],
         "Rabat": [
-          { naam:"Médina",         pm2:24908, count:6   },
-          { naam:"Haut Agdal",     pm2:21207, count:12  },
-          { naam:"Riyad",          pm2:20664, count:154 },
-          { naam:"Agdal",          pm2:18797, count:53  },
-          { naam:"Hassan",         pm2:17500, count:38  },
-          { naam:"Souissi",        pm2:17000, count:29  },
-          { naam:"Hay Riad",       pm2:16200, count:67  },
-          { naam:"Yacoub Mansour", pm2:14800, count:41  },
+          { naam:"Médina",         pm2:24908, count:6,   lat:34.0239, lng:-6.8353 },
+          { naam:"Haut Agdal",     pm2:21207, count:12,  lat:33.9836, lng:-6.8467 },
+          { naam:"Riyad",          pm2:20664, count:154, lat:33.9703, lng:-6.8636 },
+          { naam:"Agdal",          pm2:18797, count:53,  lat:33.9836, lng:-6.8553 },
+          { naam:"Hassan",         pm2:17500, count:38,  lat:34.0217, lng:-6.8406 },
+          { naam:"Souissi",        pm2:17000, count:29,  lat:33.9753, lng:-6.8289 },
+          { naam:"Hay Riad",       pm2:16200, count:67,  lat:33.9547, lng:-6.8639 },
+          { naam:"Yacoub Mansour", pm2:14800, count:41,  lat:33.9872, lng:-6.8769 },
         ],
         "Agadir": [
-          { naam:"Siusse",              pm2:21429, count:5  },
-          { naam:"Founti",              pm2:20588, count:16 },
-          { naam:"Secteur Touristique", pm2:18443, count:17 },
-          { naam:"Haut Founty",         pm2:16991, count:12 },
-          { naam:"Charaf",              pm2:16083, count:8  },
-          { naam:"Illigh",              pm2:16041, count:10 },
-          { naam:"Abattoirs",           pm2:14867, count:13 },
-          { naam:"Hay Mohammadi",       pm2:13500, count:22 },
+          { naam:"Siusse",              pm2:21429, count:5,  lat:30.4278, lng:-9.5981 },
+          { naam:"Founti",              pm2:20588, count:16, lat:30.4200, lng:-9.5972 },
+          { naam:"Secteur Touristique", pm2:18443, count:17, lat:30.3969, lng:-9.5986 },
+          { naam:"Haut Founty",         pm2:16991, count:12, lat:30.3817, lng:-9.5861 },
+          { naam:"Charaf",              pm2:16083, count:8,  lat:30.4192, lng:-9.5814 },
+          { naam:"Illigh",              pm2:16041, count:10, lat:30.4403, lng:-9.5750 },
+          { naam:"Abattoirs",           pm2:14867, count:13, lat:30.4319, lng:-9.5914 },
+          { naam:"Hay Mohammadi",       pm2:13500, count:22, lat:30.4247, lng:-9.5989 },
         ],
       },
       dist_labels: ["<500k","500k–1M","1M–2M","2M–3M","3M–5M","5M–10M",">10M"],
@@ -596,6 +665,7 @@
       renderStedePm2Chart();
       renderKoopHuurChart();
       renderWijkTable();
+      renderMap();
     }
 
     function renderKPIs() {
@@ -725,6 +795,101 @@
           }
         }
       });
+    }
+
+    // ===== MAP =====
+    const STAD_COLORS = {
+      "Casablanca": "#1C2E1D",
+      "Marrakech":  "#C4622D",
+      "Tanger":     "#C9A84C",
+      "Rabat":      "#34522e",
+      "Agadir":     "#7a8c7a",
+    };
+    let leafletMap = null;
+    let mapMarkers = [];
+
+    // Global max pm2 across all wijken
+    const GLOBAL_MAX_PM2 = Math.max(...steden.flatMap(s => DATA.wijk_data[s].map(w => w.pm2)));
+
+    function renderMap() {
+      if (!leafletMap) {
+        leafletMap = L.map('map', { zoomControl: true, scrollWheelZoom: false })
+          .setView([31.0, -6.5], 5);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+          attribution: '© OpenStreetMap · © CARTO',
+          subdomains: 'abcd', maxZoom: 18
+        }).addTo(leafletMap);
+      }
+
+      // Remove old markers
+      mapMarkers.forEach(m => m.remove());
+      mapMarkers = [];
+
+      steden.forEach(stad => {
+        const color   = STAD_COLORS[stad];
+        const isActive = currentStad === 'all' || currentStad === stad;
+        const opacity  = isActive ? 0.85 : 0.2;
+
+        DATA.wijk_data[stad].forEach(w => {
+          const radius = 6 + (w.pm2 / GLOBAL_MAX_PM2) * 22;
+          const circle = L.circleMarker([w.lat, w.lng], {
+            radius,
+            fillColor:   color,
+            color:       '#fff',
+            weight:      isActive ? 1.5 : 0.5,
+            opacity:     isActive ? 0.9 : 0.3,
+            fillOpacity: opacity,
+          });
+
+          const pct = Math.round(w.pm2 / GLOBAL_MAX_PM2 * 100);
+          circle.bindPopup(`
+            <div class="tt-inner">
+              <div class="tt-stad">${stad}</div>
+              <div class="tt-naam">${w.naam}</div>
+              <div class="tt-row">
+                <span class="tt-lbl">Prijs/m²</span>
+                <span class="tt-val-accent">${fmtFull(w.pm2)} MAD</span>
+              </div>
+              <div class="tt-row">
+                <span class="tt-lbl">In euro's</span>
+                <span class="tt-val">€${fmtFull(Math.round(w.pm2 * EUR_RATE))}/m²</span>
+              </div>
+              <div class="tt-row">
+                <span class="tt-lbl">Panden</span>
+                <span class="tt-val">${w.count} geregistreerd</span>
+              </div>
+              <div class="tt-bar-wrap">
+                <div class="tt-lbl">Relatief t.o.v. duurste wijk</div>
+                <div class="tt-bar-track">
+                  <div class="tt-bar-fill" style="width:${pct}%"></div>
+                </div>
+              </div>
+            </div>
+          `, { className: 'map-tooltip', maxWidth: 260 });
+
+          circle.on('mouseover', function() { this.openPopup(); });
+          circle.addTo(leafletMap);
+          mapMarkers.push(circle);
+        });
+      });
+
+      // Legend
+      document.getElementById('map-legend').innerHTML = steden.map(s => `
+        <div class="legend-item">
+          <div class="legend-dot" style="background:${STAD_COLORS[s]};opacity:${currentStad==='all'||currentStad===s?1:0.3}"></div>
+          <span style="opacity:${currentStad==='all'||currentStad===s?1:0.4}">${s}</span>
+        </div>
+      `).join('') + `<div class="legend-item" style="margin-left:auto;font-size:11px;color:var(--muted)">Cirkelgrootte = relatieve prijs/m²</div>`;
+
+      // Fly to selected city
+      if (currentStad !== 'all') {
+        const allWijken = DATA.wijk_data[currentStad];
+        const lat = allWijken.reduce((s,w)=>s+w.lat,0)/allWijken.length;
+        const lng = allWijken.reduce((s,w)=>s+w.lng,0)/allWijken.length;
+        leafletMap.flyTo([lat, lng], 12, { duration: 1 });
+      } else {
+        leafletMap.flyTo([31.0, -6.5], 5, { duration: 1 });
+      }
     }
 
     function renderWijkTable() {

@@ -1,0 +1,78 @@
+name: Twice-Weekly Real Estate Scrape
+
+on:
+  schedule:
+    # Every Monday and Thursday at 07:00 UTC = 09:00 Morocco time
+    - cron: '0 7 * * 1,4'
+  workflow_dispatch:
+    # Allow manual triggering from GitHub Actions UI (useful for testing)
+    inputs:
+      pages:
+        description: 'Force max pages per scraper (leave empty = auto-detect from site pagination)'
+        required: false
+        default: ''
+      limit:
+        description: 'Cap listings per scraper for testing (leave empty for full run)'
+        required: false
+        default: ''
+      sources:
+        description: 'Comma-separated scrapers to run (default: all). E.g. mubawab,avito'
+        required: false
+        default: ''
+
+jobs:
+  scrape:
+    name: Scrape & push to Supabase
+    runs-on: ubuntu-latest
+    timeout-minutes: 360  # 6-hour safety cap; full scrape may take 2-4 hours
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run scrapers
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          PAGES="${{ github.event.inputs.pages }}"
+          LIMIT="${{ github.event.inputs.limit }}"
+          # Default to mubawab + avito; override via workflow_dispatch input
+          SOURCES="${{ github.event.inputs.sources || 'mubawab avito' }}"
+
+          CMD="python tools/run_all_scrapers.py"
+          [ -n "$PAGES" ]   && CMD="$CMD --pages $PAGES"
+          [ -n "$LIMIT" ]   && CMD="$CMD --limit $LIMIT"
+          CMD="$CMD --sources $(echo $SOURCES | tr ',' ' ')"
+
+          echo "Running: $CMD"
+          $CMD
+
+      - name: Push data to Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: python tools/push_to_supabase.py
+
+      - name: Fix neighborhood data (post-scrape cleanup)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: python tools/fix_avito_neighborhoods.py
+
+      - name: Upload .tmp artifacts (for debugging)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scraped-data-${{ github.run_id }}
+          path: .tmp/
+          retention-days: 7

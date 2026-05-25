@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marktanalyse 2026 — Maghreb Estates</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <link  rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --green:        #1C2E1D;
+      --green-mid:    #34522e;
+      --cream:        #F5F1E8;
+      --cream-dark:   #ece7db;
+      --card:         #FEFCF8;
+      --border:       #d8d1c4;
+      --muted:        #7a8c7a;
+      --text:         #1C2E1D;
+      --accent:       #C4622D;
+      --accent-light: #e8855a;
+      --gold:         #C9A84C;
+      --danger:       #b73b3b;
+      --success:      #2d7a3a;
+      --font-serif:   'Cormorant Garamond', Georgia, serif;
+      --font-sans:    'Jost', system-ui, sans-serif;
+      --font-mono:    'DM Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); background: var(--cream); color: var(--text); font-weight: 300; -webkit-font-smoothing: antialiased; }
+
+    /* ── Gate ── */
+    #gate { position:fixed; inset:0; background:var(--green); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:1000; }
+    .gate__logo { font-family:var(--font-serif); font-size:13px; letter-spacing:0.12em; color:rgba(245,241,232,0.4); text-transform:uppercase; margin-bottom:64px; display:flex; flex-direction:column; align-items:center; gap:2px; }
+    .gate__logo strong { font-family:var(--font-serif); font-size:42px; font-weight:400; color:var(--cream); letter-spacing:-0.01em; line-height:1; }
+    .gate__logo em { font-style:italic; color:rgba(245,241,232,0.65); }
+    .gate__label { font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(245,241,232,0.45); margin-bottom:20px; }
+    .gate__box { display:flex; flex-direction:column; align-items:center; gap:12px; width:320px; }
+    .gate__input { width:100%; background:rgba(245,241,232,0.07); border:1px solid rgba(245,241,232,0.15); color:var(--cream); font-family:var(--font-mono); font-size:14px; letter-spacing:0.1em; padding:14px 20px; outline:none; border-radius:2px; transition:border-color 0.2s; text-align:center; }
+    .gate__input::placeholder { color:rgba(245,241,232,0.25); letter-spacing:0.05em; }
+    .gate__input:focus { border-color:rgba(245,241,232,0.4); }
+    .gate__input.error { border-color:var(--accent); }
+    .gate__btn { width:100%; background:var(--cream); color:var(--green); font-family:var(--font-sans); font-size:12px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; border:none; padding:14px 20px; cursor:pointer; border-radius:2px; transition:background 0.2s; }
+    .gate__btn:hover { background:#e8e3d8; }
+    .gate__error { font-size:11px; color:var(--accent-light); letter-spacing:0.06em; opacity:0; transition:opacity 0.2s; height:16px; }
+    .gate__error.visible { opacity:1; }
+    .gate__divider { width:40px; height:1px; background:rgba(245,241,232,0.12); margin:32px 0 24px; }
+
+    /* ── Dashboard ── */
+    #dashboard { display:none; }
+
+    /* ── Nav ── */
+    .dash-nav { background:var(--green); height:68px; display:flex; align-items:center; justify-content:space-between; padding:0 48px; border-bottom:2px solid var(--accent); position:sticky; top:0; z-index:50; }
+    .dash-nav__logo { font-family:var(--font-serif); font-size:22px; color:var(--cream); letter-spacing:-0.01em; }
+    .dash-nav__logo span { font-size:9px; font-family:var(--font-sans); letter-spacing:0.14em; text-transform:uppercase; color:rgba(245,241,232,0.45); display:block; margin-top:-2px; }
+    .dash-nav__meta { font-size:11px; color:rgba(245,241,232,0.4); letter-spacing:0.06em; font-family:var(--font-mono); }
+    .dash-nav__badge { background:var(--accent); color:#fff; font-family:var(--font-sans); font-size:10px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; padding:5px 12px; border-radius:2px; }
+
+    /* ── Hero strip ── */
+    .hero-strip { background:var(--green-mid); padding:12px 48px; display:flex; gap:40px; align-items:center; }
+    .hero-kpi { display:flex; flex-direction:column; gap:2px; }
+    .hero-kpi-val { font-family:var(--font-serif); font-size:26px; font-weight:600; color:var(--cream); line-height:1; }
+    .hero-kpi-lbl { font-size:10px; color:rgba(245,241,232,0.55); letter-spacing:0.1em; text-transform:uppercase; }
+    .hero-divider { width:1px; height:32px; background:rgba(245,241,232,0.15); }
+
+    /* ── Section nav ── */
+    .section-nav { background:var(--cream); border-bottom:1.5px solid var(--border); padding:0 48px; display:flex; }
+    .section-btn { padding:14px 24px; border:none; background:none; color:var(--muted); font-family:var(--font-sans); font-size:11px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1.5px; transition:color 0.2s, border-color 0.2s; }
+    .section-btn:hover { color:var(--text); }
+    .section-btn.active { color:var(--green); border-bottom-color:var(--accent); }
+
+    /* ── Main ── */
+    .dash-main { padding:32px 48px 80px; max-width:1440px; margin:0 auto; }
+
+    /* ── City tabs ── */
+    .section-label { font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); margin-bottom:12px; }
+    .city-tabs { display:flex; gap:8px; margin-bottom:32px; flex-wrap:wrap; }
+    .city-tab { padding:8px 22px; border:1.5px solid var(--border); background:var(--card); color:var(--muted); cursor:pointer; font-family:var(--font-sans); font-size:12px; font-weight:400; letter-spacing:0.06em; border-radius:2px; transition:all 0.2s; }
+    .city-tab:hover { border-color:var(--accent); color:var(--accent); }
+    .city-tab.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+
+    /* ── KPI grid ── */
+    .kpi-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-bottom:32px; }
+    .kpi-card { background:var(--card); border:1.5px solid var(--border); padding:22px 20px; border-radius:3px; position:relative; overflow:hidden; transition:border-color 0.2s; }
+    .kpi-card:hover { border-color:var(--green-mid); }
+    .kpi-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--green); }
+    .kpi-card.accent::before { background:var(--accent); }
+    .kpi-card.gold::before   { background:var(--gold); }
+    .kpi-label { font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+    .kpi-value { font-family:var(--font-serif); font-size:32px; font-weight:600; color:var(--text); line-height:1; margin-bottom:4px; }
+    .kpi-value.accent { color:var(--accent); }
+    .kpi-value.gold   { color:var(--gold); }
+    .kpi-sub { font-size:11px; color:var(--muted); }
+
+    /* ── Chart grid ── */
+    .chart-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px; }
+    .chart-card { background:var(--card); border:1.5px solid var(--border); border-radius:3px; padding:28px 24px; }
+    .chart-title { font-family:var(--font-serif); font-size:20px; font-weight:600; color:var(--text); margin-bottom:4px; }
+    .chart-sub { font-size:10px; color:var(--muted); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:22px; }
+    .chart-wrap { position:relative; height:240px; }
+    .chart-wrap.tall { height:320px; }
+
+    /* ── Wijk table ── */
+    .wijk-table { width:100%; border-collapse:collapse; }
+    .wijk-table th { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); text-align:left; padding:8px 14px; border-bottom:1.5px solid var(--border); }
+    .wijk-table td { padding:11px 14px; font-size:13px; border-bottom:1px solid var(--border); color:var(--text); }
+    .wijk-table tr:last-child td { border-bottom:none; }
+    .wijk-table tr:hover td { background:var(--cream-dark); }
+    .wijk-rank { font-family:var(--font-serif); font-size:20px; font-weight:600; color:var(--border); }
+    .wijk-bar-wrap { display:flex; align-items:center; gap:8px; }
+    .wijk-bar { height:5px; background:var(--border); border-radius:3px; flex:1; min-width:80px; }
+    .wijk-bar-fill { height:100%; border-radius:3px; background:var(--green); transition:width 0.4s; }
+    .wijk-pm2 { font-family:var(--font-serif); font-size:18px; font-weight:600; color:var(--accent); white-space:nowrap; }
+
+    /* ── Map ── */
+    #map { height:480px; border-radius:3px; z-index:1; }
+    .leaflet-container { font-family:var(--font-sans); background:var(--cream-dark); }
+    .leaflet-popup-content-wrapper { background:var(--green); border-radius:3px; box-shadow:0 4px 20px rgba(28,46,29,0.35); padding:0; }
+    .leaflet-popup-content { margin:0; }
+    .leaflet-popup-tip { background:var(--green); }
+    .map-popup { padding:16px 18px; min-width:200px; }
+    .map-popup__name { font-family:var(--font-serif); font-size:22px; font-weight:600; color:var(--cream); margin-bottom:12px; line-height:1.1; }
+    .map-popup__row { display:flex; justify-content:space-between; gap:16px; margin-bottom:6px; }
+    .map-popup__lbl { font-size:10px; color:rgba(245,241,232,0.5); letter-spacing:0.08em; text-transform:uppercase; }
+    .map-popup__val { font-family:var(--font-mono); font-size:12px; color:var(--cream); }
+    .map-popup__accent { font-family:var(--font-serif); font-size:18px; font-weight:600; color:#E8855A; }
+    .map-legend { display:flex; gap:20px; flex-wrap:wrap; margin-top:16px; }
+    .legend-item { display:flex; align-items:center; gap:7px; font-size:12px; color:var(--muted); }
+    .legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+
+    /* ── Yield table ── */
+    .yield-header { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:20px; flex-wrap:wrap; }
+    .yield-filters { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .yield-select { font-family:var(--font-sans); font-size:12px; color:var(--text); background:var(--card); border:1.5px solid var(--border); border-radius:2px; padding:8px 32px 8px 14px; cursor:pointer; outline:none; transition:border-color 0.2s; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a8c7a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; }
+    .yield-select:focus { border-color:var(--green); }
+    .yield-table { width:100%; border-collapse:collapse; }
+    .yield-table th { font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); text-align:left; padding:8px 14px; border-bottom:1.5px solid var(--border); cursor:pointer; user-select:none; white-space:nowrap; transition:color 0.15s; }
+    .yield-table th:hover { color:var(--text); }
+    .yield-table th.sort-asc::after  { content:' ↑'; color:var(--accent); }
+    .yield-table th.sort-desc::after { content:' ↓'; color:var(--accent); }
+    .yield-table td { padding:11px 14px; font-size:13px; border-bottom:1px solid var(--border); color:var(--text); }
+    .yield-table tr:hover td { background:var(--cream-dark); }
+    .yield-table td.num { text-align:right; font-family:var(--font-mono); font-size:12px; color:var(--muted); }
+    .yield-pct { font-family:var(--font-serif); font-size:20px; font-weight:600; }
+    .yield-pct--g { color:var(--success); }
+    .yield-pct--o { color:var(--accent); }
+    .yield-pct--r { color:var(--danger); }
+    .quality-badge { font-size:10px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; padding:3px 9px; border-radius:2px; }
+    .quality-badge--b { background:rgba(45,122,58,0.1); color:var(--success); }
+    .quality-badge--i { background:rgba(196,98,45,0.1); color:var(--accent); }
+    .yield-legend { display:flex; gap:20px; flex-wrap:wrap; margin-bottom:16px; }
+    .yield-legend-item { display:flex; align-items:center; gap:7px; font-size:11px; color:var(--muted); }
+    .yield-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+    .yield-info { margin-top:20px; background:var(--cream-dark); border-left:3px solid var(--green); padding:16px 20px; border-radius:0 3px 3px 0; }
+    .yield-info-title { font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; font-weight:500; }
+    .yield-info-text { font-size:12px; color:var(--muted); line-height:1.65; }
+
+    /* ── Wijk-analyse filters ── */
+    .wa-filters { display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end; margin-bottom:28px; }
+    .filter-group { display:flex; flex-direction:column; gap:6px; }
+    .filter-label { font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); font-weight:500; }
+    .filter-select { font-family:var(--font-sans); font-size:12px; color:var(--text); background:var(--card); border:1.5px solid var(--border); border-radius:2px; padding:9px 32px 9px 16px; cursor:pointer; outline:none; transition:border-color 0.2s; min-width:180px; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a8c7a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; }
+    .filter-select:focus { border-color:var(--green); }
+    .wa-prompt { padding:80px 0; text-align:center; color:var(--muted); font-family:var(--font-serif); font-size:26px; font-weight:300; }
+
+    /* ── Deal Validator ── */
+    .deal-form { background:var(--card); border:1.5px solid var(--border); border-radius:3px; padding:32px; margin-bottom:24px; }
+    .deal-form-title { font-family:var(--font-serif); font-size:24px; font-weight:600; margin-bottom:4px; }
+    .deal-form-sub { font-size:12px; color:var(--muted); margin-bottom:28px; }
+    .deal-form-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:24px; }
+    .deal-field { display:flex; flex-direction:column; gap:6px; }
+    .deal-field label { font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); font-weight:500; }
+    .deal-field input, .deal-field select { font-family:var(--font-sans); font-size:13px; color:var(--text); background:var(--cream); border:1.5px solid var(--border); border-radius:2px; padding:10px 14px; outline:none; transition:border-color 0.2s; width:100%; appearance:none; }
+    .deal-field select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a8c7a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; padding-right:32px; }
+    .deal-field input:focus, .deal-field select:focus { border-color:var(--green); background:#fff; }
+    .deal-submit { background:var(--green); color:var(--cream); font-family:var(--font-sans); font-size:12px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; border:none; padding:14px 40px; cursor:pointer; border-radius:2px; transition:opacity 0.2s; align-self:flex-end; }
+    .deal-submit:hover { opacity:0.85; }
+    .deal-result { background:var(--card); border:1.5px solid var(--border); border-radius:3px; padding:28px; display:none; }
+    .deal-score { display:flex; align-items:center; gap:20px; padding:20px; border-radius:3px; margin-bottom:24px; }
+    .deal-score.deal      { background:rgba(45,122,58,0.08); border:1.5px solid rgba(45,122,58,0.2); }
+    .deal-score.fair      { background:rgba(196,98,45,0.08); border:1.5px solid rgba(196,98,45,0.2); }
+    .deal-score.expensive { background:rgba(183,59,59,0.08); border:1.5px solid rgba(183,59,59,0.2); }
+    .deal-score-icon { font-family:var(--font-serif); font-size:40px; font-weight:600; line-height:1; }
+    .deal-score.deal .deal-score-icon      { color:var(--success); }
+    .deal-score.fair .deal-score-icon      { color:var(--accent); }
+    .deal-score.expensive .deal-score-icon { color:var(--danger); }
+    .deal-score-label    { font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:4px; }
+    .deal-score-headline { font-family:var(--font-serif); font-size:24px; font-weight:600; margin-bottom:4px; }
+    .deal-score-desc     { font-size:12px; color:var(--muted); line-height:1.6; }
+    .deal-stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:24px; }
+    .deal-stat { background:var(--cream); border:1px solid var(--border); border-radius:2px; padding:16px; }
+    .deal-stat-label { font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+    .deal-stat-val { font-family:var(--font-serif); font-size:24px; font-weight:600; }
+    .comp-title-row { font-size:10px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); font-weight:500; margin-bottom:12px; }
+    .comp-list { display:flex; flex-direction:column; gap:8px; }
+    .comp-item { display:flex; align-items:center; gap:12px; padding:12px 16px; background:var(--cream); border:1px solid var(--border); border-radius:2px; transition:border-color 0.2s; }
+    .comp-item:hover { border-color:var(--accent); }
+    .comp-item a { display:contents; text-decoration:none; color:inherit; }
+    .comp-name  { font-size:13px; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .comp-meta  { font-size:11px; color:var(--muted); font-family:var(--font-mono); white-space:nowrap; }
+    .comp-pm2   { font-size:11px; color:var(--muted); font-family:var(--font-mono); white-space:nowrap; }
+    .comp-price { font-family:var(--font-serif); font-size:18px; font-weight:600; color:var(--accent); white-space:nowrap; }
+
+    /* ── Loading ── */
+    #loading { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:120px 48px; gap:16px; }
+    .spinner { width:32px; height:32px; border:2px solid var(--border); border-top-color:var(--green); border-radius:50%; animation:spin .8s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .loading-text     { font-size:13px; color:var(--muted); letter-spacing:0.04em; }
+    .loading-progress { font-size:11px; color:rgba(28,46,29,0.35); font-family:var(--font-mono); }
+    .empty-state { padding:40px; text-align:center; color:var(--muted); font-size:13px; font-style:italic; }
+
+    /* ── Footer ── */
+    .dash-footer { display:flex; justify-content:space-between; align-items:center; padding:20px 48px; border-top:1px solid var(--border); font-size:11px; color:var(--muted); }
+
+    /* ── Responsive ── */
+    @media (max-width:900px) {
+      .dash-nav, .hero-strip, .section-nav, .dash-main, .dash-footer { padding-left:20px; padding-right:20px; }
+      .kpi-grid { grid-template-columns:repeat(2,1fr); }
+      .chart-grid { grid-template-columns:1fr; }
+      .hero-strip { flex-wrap:wrap; gap:20px; }
+      .deal-form-grid { grid-template-columns:1fr 1fr; }
+      .deal-stats-grid { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:600px) {
+      .kpi-grid { grid-template-columns:1fr 1fr; }
+      .deal-form-grid { grid-template-columns:1fr; }
+      .deal-stats-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Gate -->
+<div id="gate">
+  <div class="gate__logo">
+    <strong>Maghreb <em>Estates</em></strong>
+    <span>MARKTANALYSE</span>
+  </div>
+  <div class="gate__label">Beveiligde toegang — Marktanalyse 2026</div>
+  <div class="gate__box">
+    <input type="password" id="pwInput" class="gate__input" placeholder="Wachtwoord" autocomplete="off" />
+    <button class="gate__btn" id="pwBtn">Toegang</button>
+    <div class="gate__error" id="gateError">Toegang geweigerd</div>
+  </div>
+  <div class="gate__divider"></div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboard">
+
+  <div class="dash-nav">
+    <div class="dash-nav__logo">
+      Maghreb <em style="font-style:italic">Estates</em>
+      <span>Marktanalyse · Intern dashboard</span>
+    </div>
+    <div class="dash-nav__meta" id="nav-meta">Laden…</div>
+    <div class="dash-nav__badge">Live Data</div>
+  </div>
+
+  <div class="hero-strip">
+    <div class="hero-kpi"><div class="hero-kpi-val" id="h-totaal">—</div><div class="hero-kpi-lbl">Totaal panden</div></div>
+    <div class="hero-divider"></div>
+    <div class="hero-kpi"><div class="hero-kpi-val" id="h-koop">—</div><div class="hero-kpi-lbl">Te koop</div></div>
+    <div class="hero-divider"></div>
+    <div class="hero-kpi"><div class="hero-kpi-val" id="h-huur">—</div><div class="hero-kpi-lbl">Te huur</div></div>
+    <div class="hero-divider"></div>
+    <div class="hero-kpi"><div class="hero-kpi-val" id="h-steden">—</div><div class="hero-kpi-lbl">Steden</div></div>
+    <div class="hero-divider"></div>
+    <div class="hero-kpi"><div class="hero-kpi-val">1 MAD</div><div class="hero-kpi-lbl">= 0,0926 EUR</div></div>
+  </div>
+
+  <div class="section-nav">
+    <button class="section-btn active" data-sec="markt">Marktoverzicht</button>
+    <button class="section-btn" data-sec="wijk">Wijk-analyse</button>
+    <button class="section-btn" data-sec="deal">Deal Validator</button>
+  </div>
+
+  <div id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Data laden vanuit Supabase…</div>
+    <div class="loading-progress" id="load-progress"></div>
+  </div>
+
+  <!-- ═══ MARKTOVERZICHT ═══ -->
+  <div id="s-markt" style="display:none">
+    <div class="dash-main">
+      <div class="section-label">Selecteer stad</div>
+      <div class="city-tabs" id="city-tabs"></div>
+      <div class="kpi-grid" id="kpi-grid"></div>
+
+      <div class="chart-grid">
+        <div class="chart-card">
+          <div class="chart-title">Prijsverdeling — Te koop</div>
+          <div class="chart-sub">Aantal panden per prijsklasse (MAD)</div>
+          <div class="chart-wrap"><canvas id="chartDist"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Aanbod per woningtype</div>
+          <div class="chart-sub">Samenstelling van het aanbod</div>
+          <div class="chart-wrap"><canvas id="chartType"></canvas></div>
+        </div>
+      </div>
+      <div class="chart-grid">
+        <div class="chart-card">
+          <div class="chart-title">Prijs/m² per stad</div>
+          <div class="chart-sub">Mediaan verkoopprijs per m² · top 10 steden</div>
+          <div class="chart-wrap"><canvas id="chartSteden"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Koop vs. Huur</div>
+          <div class="chart-sub">Verhouding aanbod per stad · top 8</div>
+          <div class="chart-wrap"><canvas id="chartKoopHuur"></canvas></div>
+        </div>
+      </div>
+
+      <div class="chart-card" style="margin-bottom:20px">
+        <div class="chart-title">Top wijken — Hoogste prijs/m²</div>
+        <div class="chart-sub" id="wijk-table-sub">Mediaan prijs per m² in MAD · koop &amp; nieuwbouw</div>
+        <table class="wijk-table">
+          <thead><tr><th>#</th><th>Wijk / Buurt</th><th>Prijs/m² (MAD)</th><th>Prijs/m² (EUR)</th><th>Relatief</th><th>Panden</th></tr></thead>
+          <tbody id="wijk-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="chart-card" style="margin-bottom:20px">
+        <div class="chart-title">Kaart — Steden &amp; aanbod</div>
+        <div class="chart-sub">Cirkelgrootte = aanbod · hover voor details</div>
+        <div id="map"></div>
+        <div class="map-legend" id="map-legend"></div>
+      </div>
+
+      <div class="chart-card" style="margin-bottom:20px">
+        <div class="yield-header">
+          <div>
+            <div class="chart-title">Huurrendement — Long-term verhuur</div>
+            <div class="chart-sub">Bruto rendement · (mediaan huur × 12) ÷ mediaan koopprijs · min. 3 koop &amp; 3 huurpanden</div>
+          </div>
+          <div class="yield-filters">
+            <select class="yield-select" id="yield-stad" onchange="renderYield()">
+              <option value="all">Alle steden</option>
+            </select>
+            <select class="yield-select" id="yield-type" onchange="renderYield()">
+              <option value="all">Alle types</option>
+              <option value="Appartement">Appartement</option>
+              <option value="Villa">Villa</option>
+              <option value="Woning">Woning</option>
+              <option value="Riad">Riad</option>
+            </select>
+          </div>
+        </div>
+        <div class="yield-legend">
+          <div class="yield-legend-item"><div class="yield-dot" style="background:var(--success)"></div>≥ 7% — Sterk rendement</div>
+          <div class="yield-legend-item"><div class="yield-dot" style="background:var(--accent)"></div>4–7% — Gemiddeld</div>
+          <div class="yield-legend-item"><div class="yield-dot" style="background:var(--danger)"></div>&lt; 4% — Laag rendement</div>
+        </div>
+        <table class="yield-table">
+          <thead><tr>
+            <th onclick="sortYield('wijk')"     id="yth-wijk">Wijk</th>
+            <th onclick="sortYield('stad')"     id="yth-stad">Stad</th>
+            <th onclick="sortYield('type')"     id="yth-type">Type</th>
+            <th onclick="sortYield('med_koop')" id="yth-med_koop" style="text-align:right">Med. koop (MAD)</th>
+            <th onclick="sortYield('med_huur')" id="yth-med_huur" style="text-align:right">Med. huur/mnd</th>
+            <th onclick="sortYield('yld')"      id="yth-yld"      style="text-align:right">Rendement</th>
+            <th onclick="sortYield('n_koop')"   id="yth-n_koop"   style="text-align:right">n koop</th>
+            <th onclick="sortYield('n_huur')"   id="yth-n_huur"   style="text-align:right">n huur</th>
+            <th>Kwaliteit</th>
+          </tr></thead>
+          <tbody id="yield-tbody"></tbody>
+        </table>
+        <div class="yield-info">
+          <div class="yield-info-title">Bruto vs. netto rendement</div>
+          <div class="yield-info-text">Het getoonde rendement is <strong>bruto</strong>: (mediaan huurprijs × 12) ÷ mediaan koopprijs × 100. Reken op <strong>1,5–3% aftrek</strong> voor kosten (onderhoud, leegstand, beheer) voor een realistisch netto beeld. <strong>Betrouwbaar</strong> = ≥ 10 panden in beide categorieën · <strong>Indicatief</strong> = 3–9 panden.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ WIJK-ANALYSE ═══ -->
+  <div id="s-wijk" style="display:none">
+    <div class="dash-main">
+      <div class="wa-filters">
+        <div class="filter-group">
+          <div class="filter-label">Stad</div>
+          <select class="filter-select" id="wa-stad" onchange="renderWijkAnalyse()">
+            <option value="">Selecteer een stad…</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <div class="filter-label">Transactietype</div>
+          <select class="filter-select" id="wa-tx" onchange="renderWijkAnalyse()">
+            <option value="sale">Te koop</option>
+            <option value="long_term_rental">Lange termijn huur</option>
+            <option value="">Alle types</option>
+          </select>
+        </div>
+      </div>
+      <div class="wa-prompt" id="wa-prompt">Selecteer een stad om de wijk-analyse te starten</div>
+      <div id="wa-content" style="display:none">
+        <div class="kpi-grid" id="wa-kpi-grid"></div>
+        <div class="chart-grid">
+          <div class="chart-card">
+            <div class="chart-title">Prijsdistributie</div>
+            <div class="chart-sub" id="wa-hist-sub">Vraagprijzen</div>
+            <div class="chart-wrap"><canvas id="wa-chart-hist"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Prijs/m² per woningtype</div>
+            <div class="chart-sub">Mediaan prijs per m²</div>
+            <div class="chart-wrap"><canvas id="wa-chart-type"></canvas></div>
+          </div>
+        </div>
+        <div class="chart-card" style="margin-bottom:20px">
+          <div class="chart-title">Wijken vergeleken</div>
+          <div class="chart-sub" id="wa-cmp-sub">Top 15 wijken op mediaan prijs/m²</div>
+          <div class="chart-wrap tall"><canvas id="wa-chart-cmp"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Wijk-ranglijst</div>
+          <div class="chart-sub" id="wa-table-sub">Gesorteerd op mediaan prijs/m²</div>
+          <table class="wijk-table">
+            <thead><tr><th>#</th><th>Wijk</th><th>Prijs/m² (MAD)</th><th>Prijs/m² (EUR)</th><th>Relatief</th><th>Panden</th></tr></thead>
+            <tbody id="wa-wijk-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DEAL VALIDATOR ═══ -->
+  <div id="s-deal" style="display:none">
+    <div class="dash-main">
+      <div class="deal-form">
+        <div class="deal-form-title">Deal <em style="font-style:italic">Validator</em></div>
+        <div class="deal-form-sub">Voer de gegevens van een pand in om te zien hoe het zich verhoudt tot de markt</div>
+        <div class="deal-form-grid">
+          <div class="deal-field">
+            <label>Stad</label>
+            <select id="dv-stad">
+              <option value="">Selecteer een stad…</option>
+            </select>
+          </div>
+          <div class="deal-field">
+            <label>Woningtype</label>
+            <select id="dv-type">
+              <option value="">Alle types</option>
+              <option value="apartment">Appartement</option>
+              <option value="villa">Villa</option>
+              <option value="house">Woning</option>
+              <option value="riad">Riad</option>
+              <option value="land">Grond</option>
+              <option value="commercial">Commercieel</option>
+            </select>
+          </div>
+          <div class="deal-field">
+            <label>Transactie</label>
+            <select id="dv-tx">
+              <option value="sale">Te koop</option>
+              <option value="new_construction">Nieuwbouw</option>
+              <option value="long_term_rental">Lange termijn huur</option>
+            </select>
+          </div>
+          <div class="deal-field">
+            <label>Oppervlakte (m²)</label>
+            <input type="number" id="dv-m2" placeholder="bijv. 85" min="10" max="5000" />
+          </div>
+          <div class="deal-field">
+            <label>Vraagprijs (MAD)</label>
+            <input type="number" id="dv-prijs" placeholder="bijv. 1200000" min="1000" />
+          </div>
+          <div class="deal-field" style="justify-content:flex-end">
+            <label>&nbsp;</label>
+            <button class="deal-submit" onclick="validateDeal()">Analyseer</button>
+          </div>
+        </div>
+      </div>
+      <div class="deal-result" id="deal-result"></div>
+    </div>
+  </div>
+
+  <div class="dash-footer">
+    <span>© 2026 Maghreb Estates · Data: Mubawab · Avito · Sarouty · Agenz</span>
+    <span id="footer-meta">—</span>
+    <span id="footer-date">—</span>
+  </div>
+
+</div><!-- #dashboard -->
+
+<script>
+// ── Config ────────────────────────────────────────────────────────────────────
+const SUPABASE_URL  = 'https://rsvfhbwparoegdnmmxlv.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJzdmZoYndwYXJvZWdkbm1teGx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNzU0MzgsImV4cCI6MjA5NDg1MTQzOH0.kbzywvV0vmFCo62TzDQlYkLdpuyhLY-ODsc_0fFnpB0';
+const PASSWORD      = 'Test123';
+const EUR           = 0.0926;
+
+const CITY_COORDS = {
+  'Casablanca':[33.5731,-7.5898], 'Marrakech':[31.6295,-8.0083],
+  'Tanger':[35.7595,-5.8340],     'Rabat':[34.0209,-6.8416],
+  'Agadir':[30.4278,-9.5981],     'Fès':[34.0181,-5.0078],
+  'Meknès':[33.8935,-5.5473],     'Oujda':[34.6867,-1.9114],
+  'Kénitra':[34.2610,-6.5802],    'Tétouan':[35.5785,-5.3684],
+  'El Jadida':[33.2316,-8.5007],  'Essaouira':[31.5085,-9.7595],
+  'Mohammedia':[33.6861,-7.3830], 'Salé':[34.0531,-6.7986],
+  'Temara':[33.9287,-6.9088],     'Béni Mellal':[32.3372,-6.3498],
+  'Nador':[35.1740,-2.9337],      'Settat':[33.0015,-7.6207],
+  'Safi':[32.2994,-9.2372],       'Laâyoune':[27.1536,-13.2033],
+};
+const STAD_COLORS = ['#1C2E1D','#C4622D','#C9A84C','#34522e','#7a8c7a','#b8a89a','#4a7a5a','#d4945e','#a8c4a8','#8b6f47'];
+const TYPE_LBL = { apartment:'Appartement', villa:'Villa', house:'Woning', land:'Grond', commercial:'Commercieel', riad:'Riad', new_build:'Nieuwbouw', other:'Overig' };
+const MONO = 'DM Mono';
+
+// ── State ─────────────────────────────────────────────────────────────────────
+let allData = [], allCities = [], yieldData = [];
+let curStad = 'all', charts = {}, leafletMap = null, mapMarkers = [];
+let ySort = { col:'yld', dir:'desc' };
+let waCharts = {};
+
+// ── Auth ──────────────────────────────────────────────────────────────────────
+function checkPw() {
+  const v = document.getElementById('pwInput').value;
+  const e = document.getElementById('gateError');
+  const i = document.getElementById('pwInput');
+  if (v === PASSWORD) {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    init();
+  } else {
+    i.classList.add('error'); e.classList.add('visible'); i.value = '';
+    setTimeout(() => { i.classList.remove('error'); e.classList.remove('visible'); }, 2000);
+  }
+}
+document.getElementById('pwBtn').onclick = checkPw;
+document.getElementById('pwInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkPw(); });
+
+document.querySelectorAll('.section-btn').forEach(b =>
+  b.addEventListener('click', () => switchSec(b.dataset.sec))
+);
+
+function switchSec(s) {
+  document.querySelectorAll('.section-btn').forEach(b => b.classList.toggle('active', b.dataset.sec === s));
+  ['markt','wijk','deal'].forEach(id => {
+    document.getElementById('s-'+id).style.display = id===s ? 'block' : 'none';
+  });
+  if (s === 'wijk') populateWaStad();
+  if (s === 'deal') populateDvStad();
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function fmt(n, dec=0) {
+  if (n == null || isNaN(n)) return '—';
+  return n.toLocaleString('nl-NL', { maximumFractionDigits: dec });
+}
+function fmtMAD(n) {
+  if (!n || isNaN(n)) return '—';
+  if (n >= 1e6) return (n/1e6).toLocaleString('nl-NL',{maximumFractionDigits:2})+' M MAD';
+  if (n >= 1e3) return (n/1e3).toLocaleString('nl-NL',{maximumFractionDigits:0})+' K MAD';
+  return n.toLocaleString('nl-NL')+' MAD';
+}
+function median(arr) {
+  if (!arr.length) return null;
+  const s = [...arr].sort((a,b)=>a-b), m = Math.floor(s.length/2);
+  return s.length%2 ? s[m] : (s[m-1]+s[m])/2;
+}
+function groupBy(arr, key) {
+  return arr.reduce((a,x) => { const k=x[key]||'Onbekend'; (a[k]=a[k]||[]).push(x); return a; }, {});
+}
+function withM2(data) {
+  return data.filter(r => {
+    if (!r.surface_m2||r.surface_m2<=0||r.surface_m2>10000) return false;
+    if (!r.price||r.price<=0) return false;
+    const p = r.price/r.surface_m2;
+    return p>=500 && p<=150000;
+  });
+}
+function onlySale(d) { return d.filter(r => r.transaction_type==='sale'||r.transaction_type==='new_construction'); }
+function dc(id) { if (charts[id]) { charts[id].destroy(); delete charts[id]; } }
+
+const bsc = { grid:{color:'#d8d1c4'}, ticks:{font:{family:MONO,size:10},color:'#7a8c7a'} };
+
+// ── Load ──────────────────────────────────────────────────────────────────────
+async function loadData() {
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  const rows = []; let from = 0;
+  while (true) {
+    const { data, error } = await sb.from('listings')
+      .select('city,neighborhood,price,surface_m2,transaction_type,property_type,last_seen_at,url,title,source,bedrooms,bathrooms')
+      .eq('is_active', true).not('price','is',null).range(from, from+9999);
+    if (error) {
+      document.getElementById('loading').innerHTML =
+        `<div style="color:var(--danger);font-family:var(--font-mono);padding:40px">Fout: ${error.message}</div>`;
+      return null;
+    }
+    rows.push(...data);
+    document.getElementById('load-progress').textContent = `${rows.length.toLocaleString('nl-NL')} listings geladen…`;
+    if (data.length < 10000) break;
+    from += 10000;
+  }
+  return rows;
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+async function init() {
+  const data = await loadData();
+  if (!data) return;
+  allData = data;
+
+  const koop  = allData.filter(r => r.transaction_type==='sale'||r.transaction_type==='new_construction');
+  const huur  = allData.filter(r => r.transaction_type==='long_term_rental'||r.transaction_type==='short_term_rental');
+  const citySet = new Set(allData.filter(r=>r.city&&r.city!=='Onbekend').map(r=>r.city));
+
+  document.getElementById('h-totaal').textContent = fmt(allData.length);
+  document.getElementById('h-koop').textContent   = fmt(koop.length);
+  document.getElementById('h-huur').textContent   = fmt(huur.length);
+  document.getElementById('h-steden').textContent = citySet.size;
+
+  const latest = allData.reduce((a,b) => new Date(a.last_seen_at)>new Date(b.last_seen_at)?a:b);
+  const dd = new Date(latest.last_seen_at);
+  const ds = dd.toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('nav-meta').textContent   = `${fmt(allData.length)} panden · ${ds}`;
+  document.getElementById('footer-meta').textContent = `${fmt(allData.length)} panden geanalyseerd`;
+  document.getElementById('footer-date').textContent = `Bijgewerkt ${ds}`;
+
+  allCities = Object.entries(groupBy(allData,'city'))
+    .filter(([c,r])=>c&&c!=='Onbekend'&&r.length>=5)
+    .sort((a,b)=>b[1].length-a[1].length).map(([c])=>c);
+
+  yieldData = computeYield(allData);
+
+  const ys = document.getElementById('yield-stad');
+  allCities.forEach(c => { const o=document.createElement('option'); o.value=o.textContent=c; ys.appendChild(o); });
+
+  document.getElementById('loading').style.display = 'none';
+  buildCityTabs();
+  switchSec('markt');
+  renderMarkt();
+}
+
+// ── City tabs ─────────────────────────────────────────────────────────────────
+function buildCityTabs() {
+  const c = document.getElementById('city-tabs');
+  c.innerHTML = '';
+  const all = document.createElement('div');
+  all.className = 'city-tab active'; all.textContent = 'Alle steden';
+  all.onclick = () => setStad('all', all);
+  c.appendChild(all);
+  allCities.slice(0,9).forEach(city => {
+    const b = document.createElement('div');
+    b.className = 'city-tab'; b.textContent = city;
+    b.onclick = () => setStad(city, b);
+    c.appendChild(b);
+  });
+}
+function setStad(stad, el) {
+  curStad = stad;
+  document.querySelectorAll('.city-tab').forEach(t=>t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderMarkt();
+}
+function getStadData() { return curStad==='all' ? allData : allData.filter(r=>r.city===curStad); }
+
+// ── MARKTOVERZICHT ────────────────────────────────────────────────────────────
+function renderMarkt() {
+  const d = getStadData();
+  renderKPIs(d);
+  renderDistChart(d);
+  renderTypeChart(d);
+  renderPm2Chart();
+  renderKoopHuurChart();
+  renderWijkTable(d);
+  renderMap();
+  renderYield();
+}
+
+function renderKPIs(d) {
+  const sale = onlySale(d);
+  const m2d  = withM2(sale);
+  const huur = d.filter(r=>r.transaction_type==='long_term_rental');
+  const medPm2  = median(m2d.map(r=>r.price/r.surface_m2));
+  const medPrijs = median(sale.map(r=>r.price).filter(Boolean));
+  const medHuur  = median(huur.map(r=>r.price).filter(Boolean));
+  document.getElementById('kpi-grid').innerHTML = `
+    <div class="kpi-card">
+      <div class="kpi-label">Totaal aanbod</div>
+      <div class="kpi-value">${fmt(d.length)}</div>
+      <div class="kpi-sub">${curStad==='all'?'heel Marokko':curStad}</div>
+    </div>
+    <div class="kpi-card accent">
+      <div class="kpi-label">Mediaan verkoopprijs</div>
+      <div class="kpi-value accent">${fmtMAD(medPrijs)}</div>
+      <div class="kpi-sub">≈ €${fmt(Math.round((medPrijs||0)*EUR))}</div>
+    </div>
+    <div class="kpi-card gold">
+      <div class="kpi-label">Mediaan prijs/m²</div>
+      <div class="kpi-value gold">${medPm2?fmt(Math.round(medPm2)):'—'}</div>
+      <div class="kpi-sub">MAD/m² · koop · ≈ €${Math.round((medPm2||0)*EUR)}/m²</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Mediaan huurprijs</div>
+      <div class="kpi-value">${fmtMAD(medHuur)}</div>
+      <div class="kpi-sub">per maand · lange termijn</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Te koop / te huur</div>
+      <div class="kpi-value">${fmt(sale.length)}</div>
+      <div class="kpi-sub">${fmt(d.filter(r=>r.transaction_type!=='sale'&&r.transaction_type!=='new_construction').length)} huurpanden</div>
+    </div>`;
+}
+
+function renderDistChart(d) {
+  dc('dist');
+  const ctx = document.getElementById('chartDist').getContext('2d');
+  const BINS = [
+    {l:'<500k',a:0,b:5e5},{l:'500k–1M',a:5e5,b:1e6},{l:'1M–2M',a:1e6,b:2e6},
+    {l:'2M–3M',a:2e6,b:3e6},{l:'3M–5M',a:3e6,b:5e6},{l:'5M–10M',a:5e6,b:1e7},{l:'>10M',a:1e7,b:Infinity}
+  ];
+  const sale = onlySale(d).filter(r=>r.price>5e4&&r.price<2e7);
+  if (curStad === 'all') {
+    const topC = allCities.slice(0,5);
+    const colors = ['#1C2E1D','#C4622D','#C9A84C','#34522e','#7a8c7a'];
+    const datasets = topC.map((c,i) => ({
+      label:c, borderRadius:3, backgroundColor:colors[i],
+      data: BINS.map(b => allData.filter(r=>r.city===c&&(r.transaction_type==='sale'||r.transaction_type==='new_construction')&&r.price>5e4&&r.price<2e7&&r.price>=b.a&&r.price<b.b).length)
+    }));
+    charts['dist'] = new Chart(ctx, {
+      type:'bar', data:{labels:BINS.map(b=>b.l),datasets},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{family:MONO,size:11},boxWidth:12,color:'#1C2E1D'}}},
+        scales:{x:{stacked:true,grid:{display:false},ticks:{font:{family:MONO,size:10},color:'#7a8c7a'}},y:{stacked:true,...bsc}}}
+    });
+  } else {
+    charts['dist'] = new Chart(ctx, {
+      type:'bar', data:{labels:BINS.map(b=>b.l),datasets:[{data:BINS.map(b=>sale.filter(r=>r.price>=b.a&&r.price<b.b).length),backgroundColor:'#1C2E1D',borderRadius:3}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{family:MONO,size:10},color:'#7a8c7a'}},y:bsc}}
+    });
+  }
+}
+
+function renderTypeChart(d) {
+  dc('type');
+  const ctx = document.getElementById('chartType').getContext('2d');
+  const by = groupBy(d,'property_type');
+  const sorted = Object.entries(by).filter(([k])=>k&&k!=='Onbekend')
+    .map(([k,v])=>({l:TYPE_LBL[k]||k,n:v.length})).sort((a,b)=>b.n-a.n).slice(0,7);
+  const colors = ['#1C2E1D','#C4622D','#C9A84C','#34522e','#7a8c7a','#b8a89a','#4a7a5a'];
+  charts['type'] = new Chart(ctx, {
+    type:'doughnut', data:{labels:sorted.map(x=>x.l),datasets:[{data:sorted.map(x=>x.n),backgroundColor:sorted.map((_,i)=>colors[i]||'#d8d1c4'),borderWidth:0,hoverOffset:8}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'right',labels:{font:{family:MONO,size:11},boxWidth:12,padding:12,color:'#1C2E1D'}}}}
+  });
+}
+
+function renderPm2Chart() {
+  dc('steden');
+  const ctx = document.getElementById('chartSteden').getContext('2d');
+  const m2d = withM2(onlySale(allData));
+  const by  = groupBy(m2d,'city');
+  const stats = Object.entries(by).filter(([c])=>c&&c!=='Onbekend')
+    .map(([city,rows])=>({city,ppm2:median(rows.map(r=>r.price/r.surface_m2)),n:rows.length}))
+    .filter(x=>x.n>=5).sort((a,b)=>b.ppm2-a.ppm2).slice(0,10);
+  const colors = stats.map(s => s.city===curStad||curStad==='all' ? '#1C2E1D' : '#d8d1c4');
+  charts['steden'] = new Chart(ctx, {
+    type:'bar', data:{labels:stats.map(s=>s.city),datasets:[{data:stats.map(s=>Math.round(s.ppm2)),backgroundColor:colors,borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},
+      scales:{x:{...bsc,ticks:{...bsc.ticks,callback:v=>fmt(v)+' MAD'}},y:{grid:{display:false},ticks:{font:{family:MONO,size:11},color:'#1C2E1D'}}}}
+  });
+}
+
+function renderKoopHuurChart() {
+  dc('kh');
+  const ctx = document.getElementById('chartKoopHuur').getContext('2d');
+  const topC = allCities.slice(0,8);
+  charts['kh'] = new Chart(ctx, {
+    type:'bar',
+    data:{labels:topC,datasets:[
+      {label:'Te koop',data:topC.map(c=>allData.filter(r=>r.city===c&&(r.transaction_type==='sale'||r.transaction_type==='new_construction')).length),backgroundColor:'#1C2E1D',borderRadius:3},
+      {label:'Te huur',data:topC.map(c=>allData.filter(r=>r.city===c&&(r.transaction_type==='long_term_rental'||r.transaction_type==='short_term_rental')).length),backgroundColor:'#C4622D',borderRadius:3},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{family:MONO,size:11},boxWidth:12,color:'#1C2E1D'}}},
+      scales:{x:{grid:{display:false},ticks:{font:{family:MONO,size:10},color:'#7a8c7a'}},y:bsc}}
+  });
+}
+
+function renderWijkTable(d) {
+  const stad = curStad==='all' ? (allCities[0]||'') : curStad;
+  document.getElementById('wijk-table-sub').textContent =
+    `${stad}${curStad==='all'?' (selecteer een stad voor wijkdetails)':''} · mediaan prijs per m²`;
+  if (!stad) { document.getElementById('wijk-tbody').innerHTML=''; return; }
+  const src  = withM2(onlySale(allData.filter(r=>r.city===stad)));
+  const by   = groupBy(src.filter(r=>r.neighborhood&&r.neighborhood!=='Onbekend'),'neighborhood');
+  const stats = Object.entries(by).map(([n,rows])=>({n,ppm2:median(rows.map(r=>r.price/r.surface_m2)),count:rows.length}))
+    .filter(x=>x.count>=3).sort((a,b)=>b.ppm2-a.ppm2).slice(0,15);
+  if (!stats.length) { document.getElementById('wijk-tbody').innerHTML='<tr><td colspan="6" class="empty-state">Onvoldoende wijkdata voor deze stad.</td></tr>'; return; }
+  const maxP = stats[0].ppm2;
+  document.getElementById('wijk-tbody').innerHTML = stats.map((s,i)=>`
+    <tr>
+      <td><span class="wijk-rank">${String(i+1).padStart(2,'0')}</span></td>
+      <td><strong>${s.n}</strong></td>
+      <td><span class="wijk-pm2">${fmt(Math.round(s.ppm2))}</span></td>
+      <td style="color:var(--muted);font-family:var(--font-mono);font-size:12px">€${fmt(Math.round(s.ppm2*EUR))}</td>
+      <td><div class="wijk-bar-wrap"><div class="wijk-bar"><div class="wijk-bar-fill" style="width:${Math.round(s.ppm2/maxP*100)}%"></div></div><span style="font-size:10px;color:var(--muted);font-family:var(--font-mono)">${Math.round(s.ppm2/maxP*100)}%</span></div></td>
+      <td style="color:var(--muted);font-family:var(--font-mono);font-size:12px">${s.count} panden</td>
+    </tr>`).join('');
+}
+
+// ── Map ───────────────────────────────────────────────────────────────────────
+function renderMap() {
+  if (!leafletMap) {
+    leafletMap = L.map('map',{zoomControl:true,scrollWheelZoom:false}).setView([30.5,-7.5],5);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap · © CARTO',subdomains:'abcd',maxZoom:18}).addTo(leafletMap);
+  }
+  mapMarkers.forEach(m=>m.remove()); mapMarkers=[];
+  const byCity = groupBy(allData.filter(r=>r.city in CITY_COORDS),'city');
+  const cityStats = {};
+  Object.entries(byCity).forEach(([city,rows])=>{
+    const s = withM2(onlySale(rows));
+    cityStats[city] = {count:rows.length, ppm2:median(s.map(r=>r.price/r.surface_m2))};
+  });
+  const maxCount = Math.max(...Object.values(cityStats).map(x=>x.count),1);
+  const cities   = Object.keys(cityStats);
+  const colorMap = {};
+  cities.forEach((c,i)=>{ colorMap[c]=STAD_COLORS[i%STAD_COLORS.length]; });
+
+  cities.forEach(city=>{
+    const {count,ppm2} = cityStats[city];
+    const isActive = curStad==='all'||curStad===city;
+    const radius = 8+(count/maxCount)*22;
+    const circle = L.circleMarker(CITY_COORDS[city],{
+      radius, fillColor:colorMap[city], color:'#fff',
+      weight:isActive?1.5:0.5, opacity:isActive?0.9:0.3, fillOpacity:isActive?0.8:0.15,
+    });
+    circle.bindPopup(`<div class="map-popup">
+      <div class="map-popup__name">${city}</div>
+      <div class="map-popup__row"><span class="map-popup__lbl">Aanbod</span><span class="map-popup__val">${fmt(count)} panden</span></div>
+      ${ppm2?`<div class="map-popup__row"><span class="map-popup__lbl">Prijs/m²</span><span class="map-popup__accent">${fmt(Math.round(ppm2))} MAD</span></div>
+      <div class="map-popup__row"><span class="map-popup__lbl">In euro's</span><span class="map-popup__val">€${fmt(Math.round(ppm2*EUR))}/m²</span></div>`:''}
+    </div>`,{maxWidth:260});
+    circle.on('mouseover',function(){this.openPopup();});
+    circle.addTo(leafletMap); mapMarkers.push(circle);
+  });
+  document.getElementById('map-legend').innerHTML = cities.slice(0,8).map(c=>`
+    <div class="legend-item"><div class="legend-dot" style="background:${colorMap[c]};opacity:${curStad==='all'||curStad===c?1:0.3}"></div>
+    <span style="opacity:${curStad==='all'||curStad===c?1:0.4}">${c}</span></div>`).join('')+
+    `<div class="legend-item" style="margin-left:auto">Cirkelgrootte = aanbod</div>`;
+  if (curStad!=='all'&&CITY_COORDS[curStad]) leafletMap.flyTo(CITY_COORDS[curStad],11,{duration:1});
+  else leafletMap.flyTo([30.5,-7.5],5,{duration:1});
+}
+
+// ── Yield ─────────────────────────────────────────────────────────────────────
+function computeYield(data) {
+  const groups = {};
+  data.forEach(r=>{
+    if (!r.city||!r.neighborhood||r.neighborhood==='Onbekend'||!r.price||r.price<=0) return;
+    const key = `${r.city}|${r.neighborhood}|${r.property_type||'other'}`;
+    if (!groups[key]) groups[key] = {koop:[],huur:[],stad:r.city,wijk:r.neighborhood,type:r.property_type||'other'};
+    if ((r.transaction_type==='sale'||r.transaction_type==='new_construction') && r.price>=50000) groups[key].koop.push(r.price);
+    else if (r.transaction_type==='long_term_rental' && r.price>=500) groups[key].huur.push(r.price);
+  });
+  return Object.values(groups).filter(g=>g.koop.length>=3&&g.huur.length>=3).map(g=>{
+    const mk=median(g.koop), mh=median(g.huur);
+    return {stad:g.stad,wijk:g.wijk,type:TYPE_LBL[g.type]||g.type,med_koop:mk,med_huur:mh,
+      yld:Math.round(mh*12/mk*1000)/10, n_koop:g.koop.length, n_huur:g.huur.length,
+      quality:(g.koop.length>=10&&g.huur.length>=10)?'Betrouwbaar':'Indicatief'};
+  }).sort((a,b)=>b.yld-a.yld);
+}
+
+function sortYield(col) {
+  ySort = {col, dir: ySort.col===col ? (ySort.dir==='desc'?'asc':'desc') : (col==='wijk'||col==='stad'||col==='type'?'asc':'desc')};
+  renderYield();
+}
+
+function renderYield() {
+  const sf = document.getElementById('yield-stad').value;
+  const tf = document.getElementById('yield-type').value;
+  let rows = yieldData.filter(r=>(sf==='all'||r.stad===sf)&&(tf==='all'||r.type===tf));
+  const {col,dir} = ySort;
+  rows.sort((a,b)=>{const va=a[col],vb=b[col]; return typeof va==='string'?(dir==='asc'?va.localeCompare(vb):vb.localeCompare(va)):(dir==='asc'?va-vb:vb-va);});
+  ['wijk','stad','type','med_koop','med_huur','yld','n_koop','n_huur'].forEach(c=>{
+    const th=document.getElementById('yth-'+c); if(!th)return;
+    th.classList.remove('sort-asc','sort-desc'); if(ySort.col===c)th.classList.add('sort-'+ySort.dir);
+  });
+  const tb = document.getElementById('yield-tbody');
+  if (!rows.length) { tb.innerHTML='<tr><td colspan="9" class="empty-state">Geen rendementdata beschikbaar. Minimaal 3 koop- én 3 huurpanden per wijk/type vereist.</td></tr>'; return; }
+  tb.innerHTML = rows.slice(0,50).map(r=>{
+    const c = r.yld>=7?'g':r.yld>=4?'o':'r';
+    const q = r.quality==='Betrouwbaar'?'b':'i';
+    return `<tr>
+      <td><strong>${r.wijk}</strong></td><td style="color:var(--muted)">${r.stad}</td><td style="color:var(--muted)">${r.type}</td>
+      <td class="num">${fmt(r.med_koop)}</td><td class="num">${fmt(r.med_huur)}</td>
+      <td style="text-align:right"><span class="yield-pct yield-pct--${c}">${r.yld.toFixed(1)}%</span></td>
+      <td class="num">${r.n_koop}</td><td class="num">${r.n_huur}</td>
+      <td><span class="quality-badge quality-badge--${q}">${r.quality}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+// ── WIJK-ANALYSE ──────────────────────────────────────────────────────────────
+function populateWaStad() {
+  const sel = document.getElementById('wa-stad');
+  if (sel.options.length<=1) allCities.forEach(c=>{const o=document.createElement('option');o.value=o.textContent=c;sel.appendChild(o);});
+}
+
+function renderWijkAnalyse() {
+  const stad = document.getElementById('wa-stad').value;
+  const tx   = document.getElementById('wa-tx').value;
+  if (!stad) { document.getElementById('wa-prompt').style.display='block'; document.getElementById('wa-content').style.display='none'; return; }
+  document.getElementById('wa-prompt').style.display='none'; document.getElementById('wa-content').style.display='block';
+  let d = allData.filter(r=>r.city===stad);
+  if (tx) d = d.filter(r=>r.transaction_type===tx);
+  const m2d    = withM2(d);
+  const medPm2 = median(m2d.map(r=>r.price/r.surface_m2));
+  const medPr  = median(d.map(r=>r.price).filter(Boolean));
+  const wijken = Object.entries(groupBy(d.filter(r=>r.neighborhood&&r.neighborhood!=='Onbekend'),'neighborhood')).filter(([,r])=>r.length>=3);
+  document.getElementById('wa-kpi-grid').innerHTML = `
+    <div class="kpi-card"><div class="kpi-label">Listings</div><div class="kpi-value">${fmt(d.length)}</div><div class="kpi-sub">${stad}</div></div>
+    <div class="kpi-card accent"><div class="kpi-label">Mediaan prijs/m²</div><div class="kpi-value accent">${medPm2?fmt(Math.round(medPm2)):'—'}</div><div class="kpi-sub">MAD/m²</div></div>
+    <div class="kpi-card gold"><div class="kpi-label">Mediaan vraagprijs</div><div class="kpi-value gold">${fmtMAD(medPr)}</div><div class="kpi-sub">${tx||'alle types'}</div></div>
+    <div class="kpi-card"><div class="kpi-label">Actieve wijken</div><div class="kpi-value">${wijken.length}</div><div class="kpi-sub">met ≥3 listings</div></div>
+    <div class="kpi-card"><div class="kpi-label">Met m²-data</div><div class="kpi-value">${fmt(m2d.length)}</div><div class="kpi-sub">${Math.round(m2d.length/Math.max(d.length,1)*100)}% van totaal</div></div>`;
+  renderWAHist(d); renderWAType(d); renderWACmp(d,stad); renderWATable(d,stad);
+}
+
+function dcWA(id) { if(waCharts[id]){waCharts[id].destroy();delete waCharts[id];} }
+
+function renderWAHist(d) {
+  dcWA('hist');
+  const rows = d.filter(r=>r.price>1e4&&r.price<5e7);
+  document.getElementById('wa-hist-sub').textContent = `${fmt(rows.length)} listings`;
+  if (rows.length<5) return;
+  const BINS=[{l:'<500k',a:0,b:5e5},{l:'500k–1M',a:5e5,b:1e6},{l:'1M–2M',a:1e6,b:2e6},{l:'2M–3M',a:2e6,b:3e6},{l:'3M–5M',a:3e6,b:5e6},{l:'5M–10M',a:5e6,b:1e7},{l:'>10M',a:1e7,b:Infinity}];
+  const med = median(rows.map(r=>r.price));
+  const medBin = BINS.findIndex(b=>med>=b.a&&med<b.b);
+  waCharts['hist'] = new Chart(document.getElementById('wa-chart-hist').getContext('2d'),{
+    type:'bar', data:{labels:BINS.map(b=>b.l),datasets:[{data:BINS.map(b=>rows.filter(r=>r.price>=b.a&&r.price<b.b).length),backgroundColor:BINS.map((_,i)=>i===medBin?'#C4622D':'#1C2E1D'),borderRadius:3}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{family:MONO,size:10},color:'#7a8c7a'}},y:bsc}}
+  });
+}
+
+function renderWAType(d) {
+  dcWA('type');
+  const m2d  = withM2(d);
+  const by   = groupBy(m2d,'property_type');
+  const stats = Object.entries(by).filter(([k])=>k&&k!=='Onbekend')
+    .map(([k,rows])=>({label:TYPE_LBL[k]||k,ppm2:median(rows.map(r=>r.price/r.surface_m2)),n:rows.length}))
+    .filter(x=>x.n>=3).sort((a,b)=>b.ppm2-a.ppm2);
+  if (!stats.length) return;
+  waCharts['type'] = new Chart(document.getElementById('wa-chart-type').getContext('2d'),{
+    type:'bar', data:{labels:stats.map(s=>s.label),datasets:[{data:stats.map(s=>Math.round(s.ppm2)),backgroundColor:'#C4622D',borderRadius:3}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},
+      scales:{x:{...bsc,ticks:{...bsc.ticks,callback:v=>fmt(v)+' MAD'}},y:{grid:{display:false},ticks:{font:{family:MONO,size:11},color:'#1C2E1D'}}}}
+  });
+}
+
+function renderWACmp(d,stad) {
+  dcWA('cmp');
+  const m2d  = withM2(d);
+  const by   = groupBy(m2d.filter(r=>r.neighborhood&&r.neighborhood!=='Onbekend'),'neighborhood');
+  const stats = Object.entries(by).map(([n,rows])=>({n,ppm2:median(rows.map(r=>r.price/r.surface_m2)),count:rows.length}))
+    .filter(x=>x.count>=3).sort((a,b)=>b.ppm2-a.ppm2).slice(0,15);
+  if (!stats.length) return;
+  document.getElementById('wa-cmp-sub').textContent = `${stad} · top ${stats.length} wijken`;
+  waCharts['cmp'] = new Chart(document.getElementById('wa-chart-cmp').getContext('2d'),{
+    type:'bar', data:{labels:stats.map(s=>s.n),datasets:[{data:stats.map(s=>Math.round(s.ppm2)),backgroundColor:'#1C2E1D',borderRadius:3}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},
+      scales:{x:{...bsc,ticks:{...bsc.ticks,callback:v=>fmt(v)+' MAD'}},y:{grid:{display:false},ticks:{font:{family:MONO,size:10},color:'#1C2E1D'}}}}
+  });
+}
+
+function renderWATable(d,stad) {
+  const m2d  = withM2(d);
+  const by   = groupBy(m2d.filter(r=>r.neighborhood&&r.neighborhood!=='Onbekend'),'neighborhood');
+  const stats = Object.entries(by).map(([n,rows])=>({n,ppm2:median(rows.map(r=>r.price/r.surface_m2)),count:rows.length}))
+    .filter(x=>x.count>=3).sort((a,b)=>b.ppm2-a.ppm2).slice(0,20);
+  document.getElementById('wa-table-sub').textContent = `${stad} · ${stats.length} wijken met ≥3 listings`;
+  if (!stats.length) { document.getElementById('wa-wijk-tbody').innerHTML='<tr><td colspan="6" class="empty-state">Onvoldoende wijkdata.</td></tr>'; return; }
+  const maxP = stats[0].ppm2;
+  document.getElementById('wa-wijk-tbody').innerHTML = stats.map((s,i)=>`
+    <tr>
+      <td><span class="wijk-rank">${String(i+1).padStart(2,'0')}</span></td>
+      <td><strong>${s.n}</strong></td>
+      <td><span class="wijk-pm2">${fmt(Math.round(s.ppm2))}</span></td>
+      <td style="color:var(--muted);font-family:var(--font-mono);font-size:12px">€${fmt(Math.round(s.ppm2*EUR))}</td>
+      <td><div class="wijk-bar-wrap"><div class="wijk-bar"><div class="wijk-bar-fill" style="width:${Math.round(s.ppm2/maxP*100)}%"></div></div><span style="font-size:10px;color:var(--muted);font-family:var(--font-mono)">${Math.round(s.ppm2/maxP*100)}%</span></div></td>
+      <td style="color:var(--muted);font-family:var(--font-mono);font-size:12px">${s.count} panden</td>
+    </tr>`).join('');
+}
+
+// ── DEAL VALIDATOR ────────────────────────────────────────────────────────────
+function populateDvStad() {
+  const sel = document.getElementById('dv-stad');
+  if (sel.options.length<=1) allCities.forEach(c=>{const o=document.createElement('option');o.value=o.textContent=c;sel.appendChild(o);});
+}
+
+function validateDeal() {
+  const stad  = document.getElementById('dv-stad').value;
+  const type  = document.getElementById('dv-type').value;
+  const tx    = document.getElementById('dv-tx').value;
+  const m2    = parseFloat(document.getElementById('dv-m2').value);
+  const prijs = parseFloat(document.getElementById('dv-prijs').value);
+  if (!stad||!m2||!prijs) { alert('Vul minimaal stad, oppervlakte en vraagprijs in.'); return; }
+
+  const inputPm2 = prijs/m2;
+  let comp = allData.filter(r=>r.city===stad&&r.transaction_type===tx&&(type===''||r.property_type===type)&&r.price>0&&r.surface_m2>0);
+  let similar = comp.filter(r=>r.surface_m2>=m2*0.5&&r.surface_m2<=m2*1.5);
+  if (similar.length < 5) similar = comp;
+  const valid = withM2(similar);
+  const medPm2 = median(valid.map(r=>r.price/r.surface_m2));
+
+  const res = document.getElementById('deal-result');
+  res.style.display = 'block';
+  if (!medPm2||valid.length<3) {
+    res.innerHTML = `<div class="empty-state">Onvoldoende vergelijkbare panden gevonden (${valid.length}). Probeer een andere stad of type.</div>`; return;
+  }
+
+  const diff  = ((inputPm2-medPm2)/medPm2)*100;
+  const score = diff<=-10?'deal':diff>=15?'expensive':'fair';
+  const icons = {deal:'↓',fair:'≈',expensive:'↑'};
+  const titles = {deal:'Goede deal',fair:'Marktprijs',expensive:'Boven marktprijs'};
+  const descs  = {
+    deal:`Dit pand is ${Math.abs(Math.round(diff))}% goedkoper dan vergelijkbare panden. Een potentieel goede investering.`,
+    fair:`De prijs ligt dicht bij de mediaan van vergelijkbare panden. Eerlijk geprijsd.`,
+    expensive:`Dit pand is ${Math.round(diff)}% duurder dan vergelijkbaar aanbod. Overweeg te onderhandelen.`,
+  };
+
+  const top5 = [...valid].sort((a,b)=>Math.abs(a.surface_m2-m2)-Math.abs(b.surface_m2-m2)).slice(0,5);
+  const statColor = score==='deal'?'var(--success)':score==='expensive'?'var(--danger)':'var(--text)';
+
+  res.innerHTML = `
+    <div class="deal-score ${score}">
+      <div class="deal-score-icon">${icons[score]}</div>
+      <div>
+        <div class="deal-score-label">${stad} · ${type||'alle types'} · ${tx}</div>
+        <div class="deal-score-headline">${titles[score]}</div>
+        <div class="deal-score-desc">${descs[score]}</div>
+      </div>
+    </div>
+    <div class="deal-stats-grid">
+      <div class="deal-stat"><div class="deal-stat-label">Jouw prijs/m²</div><div class="deal-stat-val">${fmt(Math.round(inputPm2))} MAD</div></div>
+      <div class="deal-stat"><div class="deal-stat-label">Markt mediaan/m²</div><div class="deal-stat-val">${fmt(Math.round(medPm2))} MAD</div></div>
+      <div class="deal-stat"><div class="deal-stat-label">Afwijking</div><div class="deal-stat-val" style="color:${statColor}">${diff>0?'+':''}${Math.round(diff)}%</div></div>
+    </div>
+    <div class="comp-title-row">Vergelijkbare panden (${top5.length} van ${fmt(valid.length)} resultaten)</div>
+    <div class="comp-list">
+      ${top5.map(r=>`
+        <div class="comp-item">
+          ${r.url?`<a href="${r.url}" target="_blank" rel="noopener">`:''}
+          <div class="comp-name">${r.title||r.neighborhood||r.city||'—'}</div>
+          <div class="comp-meta">${r.surface_m2?fmt(r.surface_m2)+'m²':'—'} · ${r.source||''}</div>
+          <div class="comp-pm2">${fmt(Math.round(r.price/r.surface_m2))} MAD/m²</div>
+          <div class="comp-price">${fmtMAD(r.price)}</div>
+          ${r.url?'</a>':''}
+        </div>`).join('')}
+    </div>`;
+}
+</script>
+</body>
+</html>

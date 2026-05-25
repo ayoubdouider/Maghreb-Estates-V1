@@ -177,10 +177,8 @@ def push_listings(client: Client, listings: list[dict], dry_run: bool, target_da
             "neighborhood":     clean_neighborhood(listing),
             "amenities":        listing.get("amenities"),
             "title":            listing.get("title", ""),
-            "description":      listing.get("description") or None,
-            "floor_number":     listing.get("floor_number"),
-            "total_floors":     listing.get("total_floors"),
-            "image_urls":       listing.get("image_urls") or None,
+            # description / floor_number / total_floors / image_urls worden
+            # toegevoegd wanneer de Supabase-kolommen bestaan (Plan B)
             "last_seen_at":     datetime.now().isoformat(),
             "is_active":        True,
         }

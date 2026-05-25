@@ -213,8 +213,39 @@ def push_listings(client: Client, listings: list[dict], dry_run: bool, target_da
         for i in range(0, len(price_history_rows), BATCH):
             client.table("price_history").insert(price_history_rows[i:i + BATCH]).execute()
 
-        # Mark listings not seen today as inactive
-        client.table("listings").update({"is_active": False}).lt("last_seen_at", target_date).execute()
+        # Mark listings not seen today as inactive — per source in batches
+        # (one big UPDATE on 143k rows causes statement timeout on Supabase free plan)
+        scraped_sources = list({r["source"] for r in upsert_rows})
+        for src in scraped_sources:
+            # Fetch IDs of stale records for this source
+            stale_ids: list[str] = []
+            from_row = 0
+            while True:
+                resp = (
+                    client.table("listings")
+                    .select("source_id")
+                    .eq("source", src)
+                    .eq("is_active", True)
+                    .lt("last_seen_at", target_date)
+                    .range(from_row, from_row + 999)
+                    .execute()
+                )
+                if not resp.data:
+                    break
+                stale_ids.extend(r["source_id"] for r in resp.data)
+                if len(resp.data) < 1000:
+                    break
+                from_row += 1000
+
+            # Deactivate in batches of 400
+            for i in range(0, len(stale_ids), 400):
+                batch = stale_ids[i : i + 400]
+                client.table("listings").update({"is_active": False}).in_(
+                    "source_id", batch
+                ).eq("source", src).execute()
+
+            if stale_ids:
+                print(f"[pipeline] Marked {len(stale_ids)} {src} listings as inactive")
 
     return stats
 

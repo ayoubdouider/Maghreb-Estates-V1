@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="nl" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Domaine d'Achakar — Grond in Tanger | Maghreb Estates</title>
+  <meta name="description" content="Uitzonderlijk perceel van 39.051 m² in Achakar, Tanger — aan de Atlantische kust, in woonzone A2 met getitelde eigendom. Aangeboden door Maghreb Estates." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Cairo:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== LISTING-SPECIFIEKE STIJL (bouwt voort op style.css tokens) ===== */
+
+    .listing-hero .eyebrow { margin-bottom: 20px; }
+    .listing-hero h1 { margin-bottom: 20px; }
+    .listing-hero__loc {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin-bottom: 28px;
+    }
+
+    /* Terug-link */
+    .backlink {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      transition: color var(--transition);
+    }
+    .backlink:hover { color: var(--green-mid); }
+
+    /* Kerncijfers */
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) + 2px);
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .fact {
+      background: var(--cream);
+      padding: 36px 28px;
+    }
+    .fact__num {
+      font-family: var(--font-serif);
+      font-size: clamp(26px, 3vw, 34px);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+    .fact__label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    @media (max-width: 900px) { .facts { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .facts { grid-template-columns: 1fr; } }
+
+    /* Twee koloms tekst + zijpaneel */
+    .prose { max-width: 760px; }
+    .prose p {
+      color: var(--text-muted);
+      font-size: 17px;
+      line-height: 1.8;
+    }
+    .prose p + p { margin-top: 20px; }
+
+    /* Locatie: kenmerkenlijst */
+    .loc-list {
+      list-style: none;
+      display: grid;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .loc-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .loc-list li:last-child { border-bottom: none; padding-bottom: 0; }
+    .loc-list .dot {
+      flex-shrink: 0;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--green-mid);
+      margin-top: 8px;
+    }
+
+    /* Locatie-beeldkaarten */
+    .loc-cards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 56px;
+    }
+    .loc-card {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      background: var(--cream-dark);
+    }
+    .loc-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .loc-card:hover img { transform: scale(1.05); }
+    .loc-card__cap {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 16px 14px 12px;
+      background: linear-gradient(to top, rgba(28,46,29,0.85) 0%, transparent 100%);
+      color: var(--cream);
+    }
+    .loc-card__cap strong {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.25;
+      margin-bottom: 3px;
+    }
+    .loc-card__cap span {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(240,235,225,0.8);
+    }
+    @media (max-width: 900px) { .loc-cards { grid-template-columns: 1fr 1fr 1fr; } }
+    @media (max-width: 560px) { .loc-cards { grid-template-columns: 1fr 1fr; } }
+
+    /* Lots-samenstelling */
+    .lots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .lot {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+    }
+    .lot__label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin-bottom: 12px;
+    }
+    .lot__val {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .lot__note { font-size: 13px; color: var(--text-muted); }
+    .lots-extra {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .lots-extra div {
+      background: var(--green-light);
+      border: 1px solid #cddccd;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      font-size: 14px;
+      color: var(--green);
+      line-height: 1.6;
+    }
+    .lots-extra strong { font-weight: 500; letter-spacing: 0.04em; }
+    @media (max-width: 780px) {
+      .lots { grid-template-columns: 1fr; }
+      .lots-extra { grid-template-columns: 1fr; }
+    }
+
+    /* Formules */
+    .formules {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .formule {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .formule__img { aspect-ratio: 16 / 10; overflow: hidden; background: var(--cream-dark); }
+    .formule__img img { width: 100%; height: 100%; object-fit: cover; }
+    .formule__body { padding: 36px 34px 40px; }
+    .formule__tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin-bottom: 14px;
+    }
+    .formule__body h3 { font-size: 24px; margin-bottom: 4px; }
+    .formule__sub {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+    .formule__body p { font-size: 15px; color: var(--text-muted); line-height: 1.8; }
+    .formule__specs {
+      list-style: none;
+      margin: 22px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+    .formule__specs li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text);
+    }
+    .formule__specs li::before {
+      content: "";
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green-mid);
+      flex-shrink: 0;
+    }
+    @media (max-width: 780px) { .formules { grid-template-columns: 1fr; } }
+
+    /* Marktcijfers */
+    .market {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: rgba(240,235,225,0.15);
+      border: 1px solid rgba(240,235,225,0.15);
+      border-radius: calc(var(--radius) + 2px);
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .market__item { background: var(--green); padding: 40px 30px; }
+    .market__num {
+      font-family: var(--font-serif);
+      font-size: clamp(30px, 3.5vw, 40px);
+      color: var(--cream);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .market__desc { color: rgba(240,235,225,0.85); font-size: 14px; line-height: 1.5; margin-bottom: 10px; }
+    .market__tag {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(240,235,225,0.5);
+    }
+    @media (max-width: 900px) { .market { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .market { grid-template-columns: 1fr; } }
+
+    /* Technische fiche */
+    .fiche {
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) + 2px);
+      overflow: hidden;
+      background: var(--cream);
+    }
+    .fiche__row {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .fiche__row:last-child { border-bottom: none; }
+    .fiche__key {
+      padding: 20px 28px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: var(--cream-dark);
+      display: flex;
+      align-items: center;
+    }
+    .fiche__val {
+      padding: 20px 28px;
+      font-size: 16px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+    }
+    @media (max-width: 640px) {
+      .fiche__row { grid-template-columns: 1fr; }
+      .fiche__key { padding-bottom: 6px; }
+      .fiche__val { padding-top: 6px; }
+    }
+
+    /* Contactblok team */
+    .contact__list .contact__note { font-size: 13px; color: var(--text-muted); font-style: italic; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="images/logo.png" alt="Maghreb Estates" class="nav__logo-img" />
+      </a>
+      <nav class="nav__links">
+        <a href="index.html#aanpak">Wat wij doen</a>
+        <a href="index.html#aanbod">Aanbod</a>
+        <a href="index.html#team">Team</a>
+        <a href="#contact" class="btn btn--outline">Contact</a>
+      </nav>
+      <button class="nav__burger" id="burger" aria-label="Menu openen">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="mobileMenu">
+      <a href="index.html#aanpak">Wat wij doen</a>
+      <a href="index.html#aanbod">Aanbod</a>
+      <a href="index.html#team">Team</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero listing-hero" style="background-image: url('images/achakar-hero.jpg');">
+    <div class="hero__overlay"></div>
+    <div class="container hero__inner">
+      <a href="index.html#aanbod" class="backlink">&larr; Terug naar aanbod</a>
+      <p class="eyebrow">Tanger · Marokko — Aangeboden door Maghreb Estates</p>
+      <h1>Le Domaine<br /><em>d'Achakar</em></h1>
+      <p class="listing-hero__loc">Achakar, Tanger — aan de Atlantische kust</p>
+      <p class="hero__sub">
+        Een uitzonderlijke grondkans: bijna vier hectare aaneengesloten grond in woonzone A2, met een volledig gezekerde eigendomstitel — op een van de meest gewilde locaties van noordelijk Tanger.
+      </p>
+      <a href="#contact" class="btn btn--primary">Vraag het dossier aan</a>
+    </div>
+    <div class="hero__scroll"><span></span></div>
+  </section>
+
+  <!-- KERNCIJFERS -->
+  <section class="section" id="overzicht">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow">Een zeldzaam perceel in Tanger</p>
+        <h2>Bijna vier hectare<br /><em>aaneengesloten grond</em></h2>
+        <p class="section__desc">Gelegen op korte afstand van de Atlantische Oceaan, tegenover de Royal Club Équestre Détroit en op enkele minuten van de Grotten van Hercules. Dit perceel is een van de laatste grote kansen in de meest gewilde zone van noordelijk Tanger — met een volledig gezekerde juridische status en een aanzienlijke bebouwingsmogelijkheid in woonzone A2.</p>
+      </div>
+      <div class="facts">
+        <div class="fact">
+          <div class="fact__num">39.051 m²</div>
+          <div class="fact__label">Totale oppervlakte</div>
+        </div>
+        <div class="fact">
+          <div class="fact__num">17.180 m²</div>
+          <div class="fact__label">Bebouwbare oppervlakte</div>
+        </div>
+        <div class="fact">
+          <div class="fact__num">Zone A2</div>
+          <div class="fact__label">Stedenbouwkundig bestemmingsplan</div>
+        </div>
+        <div class="fact">
+          <div class="fact__num">TF 33376</div>
+          <div class="fact__label">Getitelde eigendom (titre foncier)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATIE -->
+  <section class="section section--tinted" id="locatie">
+    <div class="container">
+      <div class="split">
+        <div>
+          <p class="eyebrow">Locatie</p>
+          <h2>Een bevoorrechte<br /><em>ligging</em></h2>
+          <div class="prose" style="margin-top:24px;">
+            <p>Het domein ligt in het woongebied van Achakar, een van de meest gezochte zones aan de Atlantische rand van Tanger. Tegenover de Royal Club Équestre Détroit, op loopafstand van de kust en van Glorious Achakar, en enkele minuten van de Grotten van Hercules — een beschutte omgeving die toch verbonden blijft met het stadscentrum van Tanger.</p>
+          </div>
+        </div>
+        <div>
+          <ul class="loc-list">
+            <li><span class="dot"></span> Op loopafstand van het strand van Achakar</li>
+            <li><span class="dot"></span> Tegenover de Royal Club Équestre Détroit</li>
+            <li><span class="dot"></span> 5 minuten van de Grotten van Hercules</li>
+            <li><span class="dot"></span> 15 minuten van de internationale luchthaven van Tanger</li>
+            <li><span class="dot"></span> 15 minuten van het Grand Stade de Tanger (WK 2030)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="loc-cards">
+        <div class="loc-card">
+          <img src="images/achakar-plage.jpg" alt="Strand van Achakar" loading="lazy" />
+          <div class="loc-card__cap"><strong>Strand van Achakar</strong><span>Op loopafstand</span></div>
+        </div>
+        <div class="loc-card">
+          <img src="images/achakar-club.jpg" alt="Royal Club Équestre Détroit" loading="lazy" />
+          <div class="loc-card__cap"><strong>Royal Club Équestre Détroit</strong><span>Tegenover het domein</span></div>
+        </div>
+        <div class="loc-card">
+          <img src="images/achakar-grottes.jpg" alt="Grotten van Hercules" loading="lazy" />
+          <div class="loc-card__cap"><strong>Grotten van Hercules</strong><span>5 minuten</span></div>
+        </div>
+        <div class="loc-card">
+          <img src="images/achakar-aeroport.jpg" alt="Internationale luchthaven van Tanger" loading="lazy" />
+          <div class="loc-card__cap"><strong>Luchthaven Tanger</strong><span>15 minuten</span></div>
+        </div>
+        <div class="loc-card">
+          <img src="images/achakar-stade.jpg" alt="Grand Stade de Tanger" loading="lazy" />
+          <div class="loc-card__cap"><strong>Grand Stade de Tanger</strong><span>15 minuten — WK 2030</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEDENBOUWKUNDIG KADER -->
+  <section class="section section--dark" id="kader">
+    <div class="container">
+      <div class="section__header section__header--light">
+        <p class="eyebrow eyebrow--light">Stedenbouwkundig kader</p>
+        <h2>Een zeker<br /><em>stedenbouwkundig kader</em></h2>
+      </div>
+      <div class="split">
+        <div>
+          <div class="feature">
+            <h3>Zone A2 — bestemmingsplan Agence Urbaine de Tanger</h3>
+            <p>Het perceel valt volledig onder het bestemmingsplan van de Agence Urbaine de Tanger, in zone A2 (vrijstaande individuele villa's). Dit zoneringstype waarborgt een hoogwaardige woonomgeving met lage dichtheid, beschermd tegen ontwikkelingen die niet passen bij het karakter van het domein.</p>
+          </div>
+          <div class="feature">
+            <h3>Beschermde groenzone (V313)</h3>
+            <p>Een deel van het perceel (zone V313) is aangemerkt als beschermde groenzone. Dat garandeert het behoud van het landschap en de afwezigheid van bebouwing recht tegenover het domein — een blijvende rust in een gebied dat snel verstedelijkt.</p>
+          </div>
+        </div>
+        <div class="split__visual">
+          <div class="quote-block" style="position:static;">
+            <div style="display:grid; gap:28px;">
+              <div>
+                <div style="font-family:var(--font-serif); font-size:44px; color:var(--cream); line-height:1;">0,5</div>
+                <div style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(240,235,225,0.6); margin-top:8px;">COS — bebouwingscoëfficiënt (max.)</div>
+              </div>
+              <div style="border-top:1px solid rgba(240,235,225,0.15); padding-top:24px;">
+                <div style="font-family:var(--font-serif); font-size:44px; color:var(--cream); line-height:1;">25%</div>
+                <div style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(240,235,225,0.6); margin-top:8px;">CUS — vloeroppervlaktecoëfficiënt (max.)</div>
+              </div>
+              <div style="border-top:1px solid rgba(240,235,225,0.15); padding-top:24px;">
+                <div style="font-family:var(--font-serif); font-size:44px; color:var(--cream); line-height:1;">R+1</div>
+                <div style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(240,235,225,0.6); margin-top:8px;">Maximaal toegestane bouwhoogte</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAMENSTELLING PERCEEL -->
+  <section class="section" id="samenstelling">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow">Samenstelling van het perceel</p>
+        <h2>Drie bebouwbare kavels,<br /><em>één beschermde groenzone</em></h2>
+        <p class="section__desc">Het domein bestaat uit drie afzonderlijke bebouwbare kavels in zone A2 — samen goed voor 17.180 m² bebouwbare oppervlakte — aangevuld met een beschermde groenzone (V313) van bijna 3.800 m² die het landschap borgt. De aangrenzende verkeersas TM 431 (weg van 30 meter) opent daarnaast de mogelijkheid tot een R+2-classificatie binnen een gesloten-complexproject (Formule 2).</p>
+      </div>
+      <div class="lots">
+        <div class="lot">
+          <div class="lot__label">Kavel West</div>
+          <div class="lot__val">2.770 m²</div>
+        </div>
+        <div class="lot">
+          <div class="lot__label">Kavel Midden</div>
+          <div class="lot__val">5.470 m²</div>
+        </div>
+        <div class="lot">
+          <div class="lot__label">Kavel Oost</div>
+          <div class="lot__val">8.940 m²</div>
+          <div class="lot__note">Dubbele straatzijde</div>
+        </div>
+      </div>
+      <div class="lots-extra">
+        <div><strong>Beschermde groenzone V313</strong> — circa 3.800 m² onbebouwbaar groen, blijvend gevrijwaard.</div>
+        <div><strong>Verkeersas TM 431</strong> — weg van 30 meter, biedt potentie voor R+2 bij een gesloten complex.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALORISATIE / FORMULES -->
+  <section class="section section--tinted" id="scenarios">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow">Ontwikkeling</p>
+        <h2>Twee ontwikkel&shy;<em>scenario's</em></h2>
+        <p class="section__desc">Eén perceel, twee vermogensstrategieën. Afhankelijk van het profiel van de koper kan het domein worden ontwikkeld als vrijstaand landgoed met individuele villa's, of als beveiligde residentie met een hogere dichtheid. Voor elk scenario is een uitgebreid dossier beschikbaar, dat na kwalificatie wordt gedeeld.</p>
+      </div>
+      <div class="formules">
+        <div class="formule">
+          <div class="formule__img"><img src="images/achakar-formule1.jpg" alt="Luchtfoto van het vrijstaande landgoed met individuele villa's" loading="lazy" /></div>
+          <div class="formule__body">
+            <div class="formule__tag">Formule 1</div>
+            <h3>Vrijstaand landgoed</h3>
+            <p class="formule__sub">Individuele, vrijstaande villa's</p>
+            <p>Een exclusief domein van 27 vrijstaande villa's (R+1) op individuele kavels van circa 510 m², elk met eigen privézwembad. Een vermogensgerichte aanpak, ontwikkeld voor particuliere kopers en family offices.</p>
+            <ul class="formule__specs">
+              <li>27 vrijstaande villa's</li>
+              <li>≈ 510 m² per kavel</li>
+              <li>7.000 m² totale bebouwde oppervlakte</li>
+            </ul>
+          </div>
+        </div>
+        <div class="formule">
+          <div class="formule__img"><img src="images/achakar-formule2.jpg" alt="Toegangslaan van een beveiligde residentie bij zonsondergang" loading="lazy" /></div>
+          <div class="formule__body">
+            <div class="formule__tag">Formule 2</div>
+            <h3>Beveiligde residentie</h3>
+            <p class="formule__sub">Gesloten complex met permanente bewaking</p>
+            <p>Een beveiligde residentie van 40 geschakelde villa's (R+1) in een gesloten complex, elk circa 215 m² met eigen zwembad. Eén toegangspoort, bewaking 24/7 en een bindend architectonisch reglement. 22% meer verkoopbare oppervlakte dan Formule 1, met een lagere prijs per villa en een snellere verkoop.</p>
+            <ul class="formule__specs">
+              <li>40 geschakelde villa's (R+1)</li>
+              <li>8.590 m² bebouwde oppervlakte</li>
+              <li>Eén toegang, bewaking 24/7</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIJ -->
+  <section class="section" id="galerij">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow">Galerij</p>
+        <h2>Het domein<br /><em>in beeld</em></h2>
+      </div>
+      <div class="gallery">
+        <div class="gallery__item gallery__item--wide">
+          <img src="images/achakar-hero.jpg" alt="Luchtfoto van het perceel en de Atlantische kust" loading="lazy" />
+          <div class="gallery__caption">Luchtfoto — het domein en de Atlantische kust</div>
+        </div>
+        <div class="gallery__item gallery__item--tall">
+          <img src="images/achakar-gal1.jpg" alt="Villa met infinity pool met zicht op de oceaan bij zonsondergang" loading="lazy" />
+          <div class="gallery__caption">Villa met zicht op de oceaan</div>
+        </div>
+        <div class="gallery__item">
+          <img src="images/achakar-gal2.jpg" alt="Villa-interieur in Marokkaanse stijl, open naar de tuin" loading="lazy" />
+          <div class="gallery__caption">Interieur in Marokkaanse stijl</div>
+        </div>
+        <div class="gallery__item">
+          <img src="images/achakar-formule1.jpg" alt="Vrijstaand landgoed bij zonsondergang" loading="lazy" />
+          <div class="gallery__caption">Vrijstaand landgoed — Formule 1</div>
+        </div>
+        <div class="gallery__item">
+          <img src="images/achakar-formule2.jpg" alt="Met palmen omzoomde toegangslaan van het domein" loading="lazy" />
+          <div class="gallery__caption">Beveiligde residentie — Formule 2</div>
+        </div>
+      </div>
+      <p class="gallery__note">Impressiebeelden van het domein en de omgeving.</p>
+    </div>
+  </section>
+
+  <!-- MARKT -->
+  <section class="section section--dark" id="markt">
+    <div class="container">
+      <div class="section__header section__header--light">
+        <p class="eyebrow eyebrow--light">Markt</p>
+        <h2>Een markt in<br /><em>volle versnelling</em></h2>
+        <p class="section__desc" style="color:rgba(240,235,225,0.75);">De Tangerse vastgoedmarkt kent een van de sterkste groeicijfers van het land, gedragen door duurzame structurele factoren. De nieuwe belasting op onbebouwde grond (TNB) versterkt bovendien de schaarste aan getitelde, bebouwbare grond — waarvan dit domein een van de meest sprekende voorbeelden in Achakar is.</p>
+      </div>
+      <div class="market">
+        <div class="market__item">
+          <div class="market__num">+9,4%</div>
+          <div class="market__desc">Waardestijging Tanger, Q3 2025</div>
+          <div class="market__tag">IPAI-index</div>
+        </div>
+        <div class="market__item">
+          <div class="market__num">+6%</div>
+          <div class="market__desc">Landelijke stijging grondprijzen</div>
+          <div class="market__tag">IPAI-index 2025</div>
+        </div>
+        <div class="market__item">
+          <div class="market__num">7–9%</div>
+          <div class="market__desc">Bruto huurrendement Tanger</div>
+          <div class="market__tag">Markt 2025–2026</div>
+        </div>
+        <div class="market__item">
+          <div class="market__num">2030</div>
+          <div class="market__desc">WK FIFA + Tanger Tech City</div>
+          <div class="market__tag">Structurele groeimotoren</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECHNISCHE FICHE -->
+  <section class="section" id="fiche">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow">Technische fiche</p>
+        <h2>Belangrijkste<br /><em>kenmerken</em></h2>
+      </div>
+      <div class="fiche">
+        <div class="fiche__row"><div class="fiche__key">Locatie</div><div class="fiche__val">Achakar, Tanger, Marokko</div></div>
+        <div class="fiche__row"><div class="fiche__key">Totale oppervlakte</div><div class="fiche__val">39.051 m²</div></div>
+        <div class="fiche__row"><div class="fiche__key">Bebouwbare oppervlakte</div><div class="fiche__val">17.180 m²</div></div>
+        <div class="fiche__row"><div class="fiche__key">Juridische status</div><div class="fiche__val">Getitelde eigendom — titre foncier 33376/م</div></div>
+        <div class="fiche__row"><div class="fiche__key">Zonering</div><div class="fiche__val">A2 — vrijstaande individuele villa's</div></div>
+        <div class="fiche__row"><div class="fiche__key">Toegestane bouwhoogte</div><div class="fiche__val">R+1</div></div>
+        <div class="fiche__row"><div class="fiche__key">Coëfficiënt COS</div><div class="fiche__val">Maximaal 0,5</div></div>
+        <div class="fiche__row"><div class="fiche__key">Coëfficiënt CUS</div><div class="fiche__val">Maximaal 25%</div></div>
+        <div class="fiche__row"><div class="fiche__key">Prijs</div><div class="fiche__val">Op aanvraag</div></div>
+        <div class="fiche__row"><div class="fiche__key">Voorwaarden</div><div class="fiche__val">Uitgebreide informatie na kwalificatie van de aanvraag</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section section--tinted" id="contact">
+    <div class="container">
+      <div class="contact__wrap">
+        <div class="contact__info">
+          <p class="eyebrow">Contact</p>
+          <h2>Interesse in Le Domaine d'Achakar?</h2>
+          <p>Neem contact met ons op voor een privébezichtiging of voor het uitgebreide dossier. Wij begeleiden u persoonlijk en reageren doorgaans binnen 24 tot 48 uur.</p>
+          <ul class="contact__list">
+            <li>
+              <span class="contact__label">Ayoub Douider</span>
+              <a href="tel:+31683498715">+31 6 83 49 87 15</a>
+              <a href="mailto:a.douider@maghreb-estates.com">a.douider@maghreb-estates.com</a>
+            </li>
+            <li>
+              <span class="contact__label">Marouane Haddane</span>
+              <a href="tel:+31644681782">+31 6 44 68 17 82</a>
+              <a href="mailto:m.haddane@maghreb-estates.com">m.haddane@maghreb-estates.com</a>
+            </li>
+            <li>
+              <span class="contact__label">Ligging</span>
+              <span>Achakar, Tanger, Marokko</span>
+            </li>
+          </ul>
+        </div>
+        <form class="contact__form" id="contactForm" novalidate>
+          <input type="hidden" name="subject" value="Aanvraag — Le Domaine d'Achakar (Tanger)" />
+          <div class="form__row">
+            <div class="form__group">
+              <label for="naam">Naam *</label>
+              <input type="text" id="naam" name="naam" placeholder="Uw volledige naam" required />
+            </div>
+            <div class="form__group">
+              <label for="email">E-mailadres *</label>
+              <input type="email" id="email" name="email" placeholder="uw@email.nl" required />
+            </div>
+          </div>
+          <div class="form__group">
+            <label for="telefoon">Telefoonnummer</label>
+            <input type="tel" id="telefoon" name="telefoon" placeholder="+31 6 00 00 00 00" />
+          </div>
+          <div class="form__group">
+            <label for="type">Type aanvraag *</label>
+            <select id="type" name="type" required>
+              <option value="" disabled selected>Selecteer een optie</option>
+              <option value="bezichtiging">Bezichtiging van het domein</option>
+              <option value="informatie">Informatieaanvraag</option>
+              <option value="dossier">Uitgebreid dossier ontvangen</option>
+              <option value="bod">Voorstel tot aankoop</option>
+              <option value="anders">Anders</option>
+            </select>
+          </div>
+          <div class="form__group">
+            <label for="bericht">Uw bericht *</label>
+            <textarea id="bericht" name="bericht" rows="5" placeholder="Vertel ons kort over uw interesse in dit perceel..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full">Verstuur aanvraag</button>
+          <div class="form__success" id="formSuccess">
+            Bedankt voor uw aanvraag. Wij nemen zo snel mogelijk contact met u op.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__logo">
+        <span class="logo-word">Maghreb</span>
+        <span class="logo-sub">ESTATES</span>
+      </div>
+      <p class="footer__tagline">Begeleiding met overzicht — vastgoed in Marokko vanuit Nederland.</p>
+      <p class="footer__copy">&copy; 2026 Maghreb Estates. Alle rechten voorbehouden.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ===== NAV SCHADUW =====
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+      nav?.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // ===== MOBIEL MENU =====
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    burger?.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    mobileMenu?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // ===== CONTACTFORMULIER (Web3Forms) =====
+    const form = document.getElementById('contactForm');
+    const successMsg = document.getElementById('formSuccess');
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      let valid = true;
+      form.querySelectorAll('[required]').forEach(field => {
+        if (!field.value.trim()) {
+          field.classList.add('error');
+          valid = false;
+        }
+      });
+      if (!valid) return;
+
+      const submitBtn = form.querySelector('[type="submit"]');
+      submitBtn.disabled = true;
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = '...';
+
+      const data = new FormData(form);
+      data.append('access_key', 'd6036cc9-cfb2-4eb0-865b-e37998a27d6e');
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+        const json = await res.json();
+        if (json.success) {
+          form.reset();
+          submitBtn.style.display = 'none';
+          successMsg?.classList.add('visible');
+        } else {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+          alert('Er ging iets mis. Probeer het opnieuw.');
+        }
+      } catch {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        alert('Er ging iets mis. Probeer het opnieuw.');
+      }
+    });
+
+    form?.querySelectorAll('input, select, textarea').forEach(field => {
+      field.addEventListener('input', () => field.classList.remove('error'));
+    });
+  </script>
+</body>
+</html>

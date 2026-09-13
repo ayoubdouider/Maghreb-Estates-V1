@@ -3,6 +3,7 @@ const translations = {
   nl: {
     'nav.wat_wij_doen': 'Wat wij doen',
     'nav.vastgoed': 'Vastgoed',
+    'nav.aanbod': 'Aanbod',
     'nav.team': 'Team',
     'nav.contact': 'Contact',
 
@@ -33,6 +34,16 @@ const translations = {
     'gallery.cap4': 'Villa — Agadir',
     'gallery.cap5': 'CASANFA — Casablanca',
     'gallery.note': 'Alle vastgoedopties worden zorgvuldig geselecteerd en beoordeeld op locatie, kwaliteit en potentieel.',
+
+    'aanbod.eyebrow': 'Uitgelicht aanbod',
+    'aanbod.h2': 'Nu beschikbaar in<br /><em>onze selectie</em>',
+    'aanbod.loc': 'Achakar, Tanger · Marokko',
+    'aanbod.desc': 'Bijna vier hectare aaneengesloten grond aan de Atlantische kust van Tanger, in woonzone A2 met getitelde eigendom. Een zeldzame kans in een van de meest gewilde zones van de stad.',
+    'aanbod.fact1lbl': 'Totale oppervlakte',
+    'aanbod.fact2lbl': 'Bestemmingsplan',
+    'aanbod.fact3lbl': 'Prijs',
+    'aanbod.price': 'Op aanvraag',
+    'aanbod.cta': 'Bekijk dit aanbod',
 
     'team.eyebrow': 'Ons team',
     'team.h2': 'Persoonlijk contact met<br /><em>mensen die het kennen</em>',
@@ -79,6 +90,7 @@ const translations = {
   en: {
     'nav.wat_wij_doen': 'What we do',
     'nav.vastgoed': 'Properties',
+    'nav.aanbod': 'Listings',
     'nav.team': 'Team',
     'nav.contact': 'Contact',
 
@@ -109,6 +121,16 @@ const translations = {
     'gallery.cap4': 'Villa — Agadir',
     'gallery.cap5': 'CASANFA — Casablanca',
     'gallery.note': 'All property options are carefully selected and evaluated on location, quality and potential.',
+
+    'aanbod.eyebrow': 'Featured listing',
+    'aanbod.h2': 'Now available in<br /><em>our selection</em>',
+    'aanbod.loc': 'Achakar, Tangier · Morocco',
+    'aanbod.desc': 'Nearly four hectares of contiguous land on the Atlantic coast of Tangier, in residential zone A2 with titled ownership. A rare opportunity in one of the city\'s most sought-after areas.',
+    'aanbod.fact1lbl': 'Total surface',
+    'aanbod.fact2lbl': 'Zoning',
+    'aanbod.fact3lbl': 'Price',
+    'aanbod.price': 'On request',
+    'aanbod.cta': 'View this listing',
 
     'team.eyebrow': 'Our team',
     'team.h2': 'Personal contact with<br /><em>people who know</em>',
@@ -155,6 +177,7 @@ const translations = {
   fr: {
     'nav.wat_wij_doen': 'Ce que nous faisons',
     'nav.vastgoed': 'Biens immobiliers',
+    'nav.aanbod': 'Biens',
     'nav.team': 'Équipe',
     'nav.contact': 'Contact',
 
@@ -185,6 +208,16 @@ const translations = {
     'gallery.cap4': 'Villa — Agadir',
     'gallery.cap5': 'CASANFA — Casablanca',
     'gallery.note': 'Toutes les options immobilières sont soigneusement sélectionnées et évaluées selon l\'emplacement, la qualité et le potentiel.',
+
+    'aanbod.eyebrow': 'Bien à la une',
+    'aanbod.h2': 'Désormais disponible dans<br /><em>notre sélection</em>',
+    'aanbod.loc': 'Achakar, Tanger · Maroc',
+    'aanbod.desc': 'Près de quatre hectares d\'un seul tenant sur la côte atlantique de Tanger, en zone résidentielle A2 avec titre foncier. Une opportunité rare dans l\'un des secteurs les plus prisés de la ville.',
+    'aanbod.fact1lbl': 'Surface totale',
+    'aanbod.fact2lbl': 'Zonage',
+    'aanbod.fact3lbl': 'Prix',
+    'aanbod.price': 'Sur demande',
+    'aanbod.cta': 'Voir ce bien',
 
     'team.eyebrow': 'Notre équipe',
     'team.h2': 'Contact personnel avec<br /><em>des gens qui connaissent</em>',
@@ -231,6 +264,7 @@ const translations = {
   ar: {
     'nav.wat_wij_doen': 'ما نقدمه',
     'nav.vastgoed': 'العقارات',
+    'nav.aanbod': 'المعروض',
     'nav.team': 'الفريق',
     'nav.contact': 'اتصل بنا',
 
@@ -261,6 +295,16 @@ const translations = {
     'gallery.cap4': 'فيلا — أكادير',
     'gallery.cap5': 'CASANFA — الدار البيضاء',
     'gallery.note': 'جميع خيارات العقارات مختارة بعناية ومقيّمة من حيث الموقع والجودة والإمكانات.',
+
+    'aanbod.eyebrow': 'عرض مميّز',
+    'aanbod.h2': 'متوفّر الآن ضمن<br /><em>مجموعتنا</em>',
+    'aanbod.loc': 'أشقار، طنجة · المغرب',
+    'aanbod.desc': 'ما يقارب أربعة هكتارات من الأرض المتّصلة على الساحل الأطلسي لطنجة، في المنطقة السكنية A2 مع سند ملكية محفّظ. فرصة نادرة في أحد أكثر أحياء المدينة طلباً.',
+    'aanbod.fact1lbl': 'المساحة الإجمالية',
+    'aanbod.fact2lbl': 'التصميم العمراني',
+    'aanbod.fact3lbl': 'السعر',
+    'aanbod.price': 'عند الطلب',
+    'aanbod.cta': 'عرض هذا العقار',
 
     'team.eyebrow': 'فريقنا',
     'team.h2': 'تواصل شخصي مع<br /><em>أشخاص يعرفون السوق</em>',
